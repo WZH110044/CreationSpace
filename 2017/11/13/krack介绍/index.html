@@ -87,15 +87,14 @@
 <meta property="og:site_name" content="叼奶嘴的锅包肉">
 <meta property="og:description" content="10月中旬网上传出WPA/WPA2被攻破的消息，跟导师讨论了一下，想知道是什么原理，习惯性的百度了这条消息，结果全都是一些媒体新闻，这些新闻的质量也不敢恭维，看起来非常像一个抄一个抄出来的，只好google了一下，找到了这个攻击方法发现者—Mathy Vanhoef&amp;nbsp;的网站&amp;nbsp; https://www.krackattacks.com/，Vanhoef在这里对KRACK（密钥重安">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.freebuf.com/buf/themes/freebuf/images/grey.gif">
 <meta property="og:image" content="http://image.3001.net/images/20171107/15100442509594.png!small">
-<meta property="og:image" content="http://www.freebuf.com/buf/themes/freebuf/images/grey.gif">
 <meta property="og:image" content="http://image.3001.net/images/20171107/15100442641083.png!small">
-<meta property="og:updated_time" content="2018-05-11T11:59:16.639Z">
+<meta property="og:image" content="http://image.3001.net/images/20171107/15100442739931.png!small">
+<meta property="og:updated_time" content="2018-05-11T12:04:11.826Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="krack介绍">
 <meta name="twitter:description" content="10月中旬网上传出WPA/WPA2被攻破的消息，跟导师讨论了一下，想知道是什么原理，习惯性的百度了这条消息，结果全都是一些媒体新闻，这些新闻的质量也不敢恭维，看起来非常像一个抄一个抄出来的，只好google了一下，找到了这个攻击方法发现者—Mathy Vanhoef&amp;nbsp;的网站&amp;nbsp; https://www.krackattacks.com/，Vanhoef在这里对KRACK（密钥重安">
-<meta name="twitter:image" content="http://www.freebuf.com/buf/themes/freebuf/images/grey.gif">
+<meta name="twitter:image" content="http://image.3001.net/images/20171107/15100442509594.png!small">
 
 
 
@@ -353,10 +352,7 @@
 <p>（3）伪造数据包，更改数据包的内容并进行发送</p>
 <h2 id="3、进行KRACK需要的条件是什么？"><a href="#3、进行KRACK需要的条件是什么？" class="headerlink" title="3、进行KRACK需要的条件是什么？"></a>3、进行KRACK需要的条件是什么？</h2><p>（1）能连接上待攻击的wifi网络</p>
 <p>（2）能进行中间人攻击（可以看做是做一个中间转发的路由，目的是能按照攻击者意愿拦截、发送帧）</p>
-<p></p><p></p>
-<p><img src="http://www.freebuf.com/buf/themes/freebuf/images/grey.gif" alt="image.png">    </p>
-<noscript><img src="http://image.3001.net/images/20171107/15100442509594.png!small" alt="image.png">    <p></p></noscript>
-
+<p><img src="http://image.3001.net/images/20171107/15100442509594.png!small" alt="image.png">    </p>
 <h2 id="4、攻击的是什么环节？"><a href="#4、攻击的是什么环节？" class="headerlink" title="4、攻击的是什么环节？"></a>4、攻击的是什么环节？</h2><p>KRACK 针对的是WPA/WPA2，他们受攻击的原因是都遵循802.1x的标准（握手的方法和细节规定）</p>
 <p>客户端与AP交流的第一阶段是认证阶段，此阶段双方验证密码</p>
 <p>而攻击发生在之后的四次（4-way）握手阶段和组密钥（Group key）握手阶段</p>
@@ -372,10 +368,7 @@
 <p><span style="color: rgb(255, 0, 0);">2、STA把S-nonce（STA端</span><span style="color: rgb(255, 0, 0);">随机数</span><span style="color: rgb(255, 0, 0);">）传给AP，同时加了MIC，AP接到后比较MIC，AP生成PTK、GTK</span></p>
 <p><span style="color: rgb(255, 0, 0);">3、AP将GTK和MIC发给STA（此时两边都有PTK）</span></p>
 <p><span style="color: rgb(255, 0, 0);">4、STA发送ACK进行确认</span></p>
-<p></p><p></p>
-<p><img src="http://www.freebuf.com/buf/themes/freebuf/images/grey.gif" alt="image.png">    </p>
-<noscript><img src="http://image.3001.net/images/20171107/15100442641083.png!small" alt="image.png">    <p></p></noscript>
-
+<p><img src="http://image.3001.net/images/20171107/15100442641083.png!small" alt="image.png">    </p>
 <h2 id="5、KRACK的具体攻击过程原理和方法"><a href="#5、KRACK的具体攻击过程原理和方法" class="headerlink" title="5、KRACK的具体攻击过程原理和方法"></a>5、KRACK的具体攻击过程原理和方法</h2><p>由于不同的厂商在实现802.11协议时具体细节不同，所以针对不同设备的攻击方法和攻击效果也略有不同</p>
 <p>这个攻击的名称叫做密钥重安装攻击，那么问题来了</p>
 <ul>
@@ -402,7 +395,7 @@
 <p>在客户端发送出消息4之后安装好PTK时，攻击者劫持消息4，AP没有收到消息4，就会重发消息3</p>
 <p>客户端再次收到消息3，就会触发重安装，客户端重安装PTK，会重置重传计数器</p>
 <p>5、重安装攻击的危险之处</p>
-<p>这会导致什么呢？导致客户端同意接受一些之前收到过得信息，这就导致了重放攻击成功</p>
+<p>这会导致什么呢？导致客户端同意接受一些之前收到过得信息，这就导致了重放攻击成功<br><img src="http://image.3001.net/images/20171107/15100442739931.png!small" alt="image.png">    </p>
 
       
     </div>
