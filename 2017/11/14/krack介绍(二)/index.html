@@ -79,22 +79,23 @@
 
 
 
-<meta name="description" content="10月中旬网上传出WPA/WPA2被攻破的消息，跟导师讨论了一下，想知道是什么原理，习惯性的百度了这条消息，结果全都是一些媒体新闻，这些新闻的质量也不敢恭维，看起来非常像一个抄一个抄出来的，只好google了一下，找到了这个攻击方法发现者—Mathy Vanhoef&amp;nbsp;的网站&amp;nbsp; https://www.krackattacks.com/，Vanhoef在这里对KRACK（密钥重安">
+<meta name="description" content="上次简介了KRACK、四次握手的内容以及针对可接受明文重传设备的四次握手攻击方法，这次介绍四种类型的握手攻击方法：仅接受加密信息重传设备的四次握手；Group Key 握手（即时密钥安装）；Group Key 握手（延时密钥安装）和BSS过渡（FT）握手。 在介绍攻击方法之前，先科普一点相关的的密码学知识。 密码学知识流密钥加密：利用动态的密钥来加密信息，将根据动态参数不断变化的密钥流&amp;nbsp;">
 <meta name="keywords" content="网络安全,论文解析">
 <meta property="og:type" content="article">
-<meta property="og:title" content="krack介绍">
-<meta property="og:url" content="http://WZH110044.github.io/2017/11/13/krack介绍/index.html">
+<meta property="og:title" content="krack介绍(二)">
+<meta property="og:url" content="http://WZH110044.github.io/2017/11/14/krack介绍(二)/index.html">
 <meta property="og:site_name" content="叼奶嘴的锅包肉">
-<meta property="og:description" content="10月中旬网上传出WPA/WPA2被攻破的消息，跟导师讨论了一下，想知道是什么原理，习惯性的百度了这条消息，结果全都是一些媒体新闻，这些新闻的质量也不敢恭维，看起来非常像一个抄一个抄出来的，只好google了一下，找到了这个攻击方法发现者—Mathy Vanhoef&amp;nbsp;的网站&amp;nbsp; https://www.krackattacks.com/，Vanhoef在这里对KRACK（密钥重安">
+<meta property="og:description" content="上次简介了KRACK、四次握手的内容以及针对可接受明文重传设备的四次握手攻击方法，这次介绍四种类型的握手攻击方法：仅接受加密信息重传设备的四次握手；Group Key 握手（即时密钥安装）；Group Key 握手（延时密钥安装）和BSS过渡（FT）握手。 在介绍攻击方法之前，先科普一点相关的的密码学知识。 密码学知识流密钥加密：利用动态的密钥来加密信息，将根据动态参数不断变化的密钥流&amp;nbsp;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://image.3001.net/images/20171107/15100442509594.png!small">
-<meta property="og:image" content="http://image.3001.net/images/20171107/15100442641083.png!small">
-<meta property="og:image" content="http://image.3001.net/images/20171107/15100442739931.png!small">
-<meta property="og:updated_time" content="2018-05-11T12:04:11.826Z">
+<meta property="og:image" content="http://image.3001.net/images/20171107/15100445714116.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20171107/1510044692747.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20171107/15100447656833.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20171107/15100447778682.png!small">
+<meta property="og:updated_time" content="2018-05-11T12:14:54.714Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="krack介绍">
-<meta name="twitter:description" content="10月中旬网上传出WPA/WPA2被攻破的消息，跟导师讨论了一下，想知道是什么原理，习惯性的百度了这条消息，结果全都是一些媒体新闻，这些新闻的质量也不敢恭维，看起来非常像一个抄一个抄出来的，只好google了一下，找到了这个攻击方法发现者—Mathy Vanhoef&amp;nbsp;的网站&amp;nbsp; https://www.krackattacks.com/，Vanhoef在这里对KRACK（密钥重安">
-<meta name="twitter:image" content="http://image.3001.net/images/20171107/15100442509594.png!small">
+<meta name="twitter:title" content="krack介绍(二)">
+<meta name="twitter:description" content="上次简介了KRACK、四次握手的内容以及针对可接受明文重传设备的四次握手攻击方法，这次介绍四种类型的握手攻击方法：仅接受加密信息重传设备的四次握手；Group Key 握手（即时密钥安装）；Group Key 握手（延时密钥安装）和BSS过渡（FT）握手。 在介绍攻击方法之前，先科普一点相关的的密码学知识。 密码学知识流密钥加密：利用动态的密钥来加密信息，将根据动态参数不断变化的密钥流&amp;nbsp;">
+<meta name="twitter:image" content="http://image.3001.net/images/20171107/15100445714116.png!small">
 
 
 
@@ -124,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://WZH110044.github.io/2017/11/13/krack介绍/"/>
+  <link rel="canonical" href="http://WZH110044.github.io/2017/11/14/krack介绍(二)/"/>
 
 
 
 
 
-  <title>krack介绍 | 叼奶嘴的锅包肉</title>
+  <title>krack介绍(二) | 叼奶嘴的锅包肉</title>
   
 
 
@@ -247,7 +248,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://WZH110044.github.io/2017/11/13/krack介绍/">
+    <link itemprop="mainEntityOfPage" href="http://WZH110044.github.io/2017/11/14/krack介绍(二)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="WZH">
@@ -264,7 +265,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">krack介绍</h1>
+          <h1 class="post-title" itemprop="name headline">krack介绍(二)</h1>
         
 
         <div class="post-meta">
@@ -276,8 +277,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-13T12:45:44+08:00">
-                2017-11-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-14T12:45:44+08:00">
+                2017-11-14
               </time>
             
 
@@ -336,66 +337,40 @@
       
 
       
-        <p><strong>10月中旬网上传出WPA/WPA2被攻破的消息，跟导师讨论了一下，想知道是什么原理，习惯性的百度了这条消息，结果全都是一些媒体新闻，这些新闻的质量也不敢恭维，看起来非常像一个抄一个抄出来的，只好google了一下，找到了这个攻击方法发现者—Mathy Vanhoef&nbsp;的网站&nbsp; <a href="https://www.krackattacks.com/" target="_blank" rel="noopener">https://www.krackattacks.com/</a>，Vanhoef在这里对KRACK（密钥重安装攻击）进行了简单介绍，也在此挂上了攻击演示视频，有需要的人可以上这个网站上看一下，主要的是找到了Vanhoef关于此次攻击的论文《Key    Reinstallation Atacks: Forcing Nonce Reuse in WPA2》，本文介绍的是我在阅读论文后的理解，期望达到让有一点计算机网络知识的人能看懂的程度。</strong></p>
-<p>先来介绍一下KRACK对WPA/WPA2破解的程度，KRACK的攻击对象包括客户端和AP，针对的是两方在密钥认证结束后的以协商消息加密密钥为目的的四次握手阶段，对大家平时所说的wifi密码不构成直接威胁（wifi密码早就可以暴力破解，尽量把wifi密码设的复杂一点，无意义一点），而是对连接wifi后你与AP交互过程中的产生的信息构成直接威胁，直观地说，你连接wifi后发送的用户名密码、聊天消息等信息会被人截取并部分破解或者对你的信息进行重放攻击。（不了解WPA、AP的人可百度）</p>
-<h2 id="1、这个攻击方法的名字是什么？"><a href="#1、这个攻击方法的名字是什么？" class="headerlink" title="1、这个攻击方法的名字是什么？"></a>1、这个攻击方法的名字是什么？</h2><p>中文名：密钥重安装攻击</p>
-<p>英文名：Key Reinstallation Atacks（下文统一用KRACK代替）</p>
-<h2 id="2、KRACK的目的是什么？"><a href="#2、KRACK的目的是什么？" class="headerlink" title="2、KRACK的目的是什么？"></a>2、KRACK的目的是什么？</h2><p>目的：</p>
+        <p><strong>上次简介了<a href="http://www.freebuf.com/news/153323.html" target="_blank" rel="noopener">KRACK、四次握手的内容以及针对可接受明文重传设备的四次握手攻击方法</a>，这次介绍四种类型的握手攻击方法：仅接受加密信息重传设备的四次握手；Group Key 握手（即时密钥安装）；Group Key 握手（延时密钥安装）和BSS过渡（FT）握手。</strong></p>
+<p><span style="color: rgb(0, 0, 0);">在介绍攻击方法之前，先科普一点相关的的密码学知识。</span></p>
+<h2 id="密码学知识"><a href="#密码学知识" class="headerlink" title="密码学知识"></a><span style="color: rgb(51, 51, 51);">密码学知识</span></h2><p><span style="color: rgb(0, 0, 0);"><strong>流密钥加密：</strong>利用动态的密钥来加密信息，将根据动态参数不断变化的密钥流&nbsp; 与 待加密的明文进行加密操作从而得到密文。</span></p>
+<p><span style="color: rgb(0, 0, 0);"><strong>流密钥特点：</strong>如果参数一直变化（比如01234&#8230;..），可知密钥不会重复（你不可能获得两条用相同密钥加密的信息）<br></span></p>
+<p><span style="color: rgb(0, 0, 0);"><strong>WPA加密协议：</strong>此加密协议用的是stream cipher加密（利用随机密钥异或明文）</span></p>
+<p><span style="color: rgb(0, 0, 0);"><strong>异或（#）：</strong>若已知C=A#B&nbsp; D=A#G，那么C#D=B#G&nbsp; 若已知B或G任何一个的值，那么另一个可知</span></p>
+<p>由上文可知WPA用的就是流密钥加密，如果我们可以获得两条用相同密钥加密的不同明文，那我们就可以破解加密部分的内容。&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>
+<h2 id="攻击仅接受加密信息重传设备的四次握手-nbsp-nbsp"><a href="#攻击仅接受加密信息重传设备的四次握手-nbsp-nbsp" class="headerlink" title="攻击仅接受加密信息重传设备的四次握手&nbsp;&nbsp;"></a><span style="color: rgb(0, 0, 0);">攻击仅接受加密信息重传设备的四次握手&nbsp;</span><span style="color: rgb(0, 0, 0);">&nbsp;</span></h2><p><span style="">有些设备是不接受明文传输的消息3，他们在安装了PTK后，只接受加密的信息，那如何攻击呢？</span></p>
+<p><span style="">攻击者发现：部分Android设备虽然在第一次接受了消息3后就安装了PTK，从而不接受明文信息，但是它会接受两条一起传过来的消息3，它会把他们放在缓冲内逐条读取处理。</span></p>
+<p><span style=""><span style="">而且，<strong><span style="color: rgb(255, 41, 65);">用此方法触发的攻击可以达到破解部分加密数据的能力。</span></strong>    </span>    </span></p>
+<p><span style="color: rgb(0, 0, 0);">所以：攻击者要从第二条消息后就截获消息3。AP未接到消息4，将重发消息3，至此截获了两个消息3（等待第二条），攻击者将两条消息3发给客户端，客户端回复第一条后第一次安装PTK，并发送用初始密钥加密的消息4（<strong><span style="color: rgb(255, 41, 65);">攻击者此时获得用初始密钥加密的消息4</span></strong>），随后第二条消息3触发重新安装漏洞，客户端重置计数器随机数等，攻击者即可等待重新安装后<strong><span style="color: rgb(255, 41, 65);">用初始密钥加密的用户数据</span></strong>，这条用户数据的密文被攻击者截获后，根据上面的原理即可知道用户数据那条信息的内容。</span></p>
+<p><img src="http://image.3001.net/images/20171107/15100445714116.png!small" alt="WPAWPA2漏洞分析（第二部分）">    </p>
+<p><span style="">图中符号：Enc(&#8220;明文&#8221;)表示加密的消息，上角标-计数器的数值，下角标-PTK。</span></p>
+<p><span style="font-size: 1.5em;">攻击 Group Key 握手（即时密钥安装）</span></p>
+<p><span style="color: rgb(249, 185, 67);">针对Group Key握手的攻击目的都是实现重放攻击，包括即时和延迟。</span></p>
+<p><span style="">即时密钥安装的意思&nbsp; 就是&nbsp; 认证端发送消息1后立即安装GTK 。</span></p>
 <blockquote>
-<p>（1）拦截并解密通过无线网络传输的数据</p>
-<p>（2）进行重放攻击</p>
-<p>（3）进行伪造数据包攻击</p>
+<p><strong><span style="">目的：</span></strong><span style="">攻击者想重放AP发送的广播帧</span></p>
+<p><strong><span style="">困难：</span></strong><span style="">请求端有重放计时器，可以识别新旧信息</span></p>
+<p><strong><span style="">方法：</span></strong><span style="">重置重放计时器</span></p>
 </blockquote>
-<p>解释：</p>
-<p>（1）一般来说，客户端与AP的数据传输都是用密钥加了密的，拦截与解密就很好懂了</p>
-<p>（2）重放攻击的基本原理就是把以前窃听到的数据原封不动地重新发送给接收方。很多时候，网络上传输的数据是加密过的，此时窃听者无法得到数据的准确意义。但如果他知道这些数据的作用，就可以在不知道数据内容的情况下通过再次发送这些数据达到愚弄接收端的目的。例子：假设网上存款系统中，一条消息表示用户支取了一笔存款，攻击者完全可以多次发送这条消息而偷窃存款</p>
-<p>（3）伪造数据包，更改数据包的内容并进行发送</p>
-<h2 id="3、进行KRACK需要的条件是什么？"><a href="#3、进行KRACK需要的条件是什么？" class="headerlink" title="3、进行KRACK需要的条件是什么？"></a>3、进行KRACK需要的条件是什么？</h2><p>（1）能连接上待攻击的wifi网络</p>
-<p>（2）能进行中间人攻击（可以看做是做一个中间转发的路由，目的是能按照攻击者意愿拦截、发送帧）</p>
-<p><img src="http://image.3001.net/images/20171107/15100442509594.png!small" alt="image.png">    </p>
-<h2 id="4、攻击的是什么环节？"><a href="#4、攻击的是什么环节？" class="headerlink" title="4、攻击的是什么环节？"></a>4、攻击的是什么环节？</h2><p>KRACK 针对的是WPA/WPA2，他们受攻击的原因是都遵循802.1x的标准（握手的方法和细节规定）</p>
-<p>客户端与AP交流的第一阶段是认证阶段，此阶段双方验证密码</p>
-<p>而攻击发生在之后的四次（4-way）握手阶段和组密钥（Group key）握手阶段</p>
-<p>另外，PeerKey握手（端到端握的协议）和BSS过渡（FT）握手也会收到攻击（这个协议触发于在两个AP间切换时，比如北邮很大，会有很多AP覆盖校园，你连上了北邮的校园网，并在校园内行走，为了完成AP的流畅切换，这个协议产生了）</p>
-<p>下图是各阶段握手示意图，四路握手交换的四个消息，下文会用消息1、2、3、4来表示，下面简单介绍一下四路握手</p>
-<p><span style="color: rgb(255, 0, 0);">为什么四次握手?</span></p>
-<p><span style="color: rgb(255, 0, 0);">答：协商秘钥PTK！</span></p>
-<p><span style="color: rgb(255, 0, 0);">PTK用来干嘛？</span></p>
-<p><span style="color: rgb(255, 0, 0);">答： PTK+报文数据经过AES或TKIP算法生成密文和签名</span></p>
-<p><span style="color: rgb(255, 0, 0);">四次握手流程是怎么样的？（STA可以当做客户端理解）</span></p>
-<p><span style="color: rgb(255, 0, 0);">答：</span></p>
-<p><span style="color: rgb(255, 0, 0);">1、AP先把A-nonce（AP端随机数）传递给STA，STA生成PTK</span></p>
-<p><span style="color: rgb(255, 0, 0);">2、STA把S-nonce（STA端</span><span style="color: rgb(255, 0, 0);">随机数</span><span style="color: rgb(255, 0, 0);">）传给AP，同时加了MIC，AP接到后比较MIC，AP生成PTK、GTK</span></p>
-<p><span style="color: rgb(255, 0, 0);">3、AP将GTK和MIC发给STA（此时两边都有PTK）</span></p>
-<p><span style="color: rgb(255, 0, 0);">4、STA发送ACK进行确认</span></p>
-<p><img src="http://image.3001.net/images/20171107/15100442641083.png!small" alt="image.png">    </p>
-<h2 id="5、KRACK的具体攻击过程原理和方法"><a href="#5、KRACK的具体攻击过程原理和方法" class="headerlink" title="5、KRACK的具体攻击过程原理和方法"></a>5、KRACK的具体攻击过程原理和方法</h2><p>由于不同的厂商在实现802.11协议时具体细节不同，所以针对不同设备的攻击方法和攻击效果也略有不同</p>
-<p>这个攻击的名称叫做密钥重安装攻击，那么问题来了</p>
-<ul>
-<li><p>谁被迫进行了重安装？</p>
-</li>
-<li><p>什么时候以及为什么重安装了？</p>
-</li>
-<li><p>重安装了什么？</p>
-</li>
-<li><p>如何实现重安装攻击</p>
-</li>
-<li><p>为什么重安装了就危险了呢，就能进行解密、重放等攻击了呢？</p>
-</li>
-</ul>
-<p>（1）针对四路握手的攻击（客户端接受明文重发的消息3）</p>
-<p>1、谁被迫进行了重安装？</p>
-<p>客户端</p>
-<p>2、什么时候以及为什么进行重安装了？</p>
-<p>这是漏洞所在，在接受AP重传的消息3的时候，客户端会进行重安装</p>
-<p>3、重安装了什么？</p>
-<p>重安装了PTK（加密密钥），重置重传计数器（用来分辨是否接受过某个帧）</p>
-<p>4、如何实现重安装攻击？</p>
-<p>客户端与AP要进行四次握手才能协商密钥</p>
-<p>在客户端发送出消息4之后安装好PTK时，攻击者劫持消息4，AP没有收到消息4，就会重发消息3</p>
-<p>客户端再次收到消息3，就会触发重安装，客户端重安装PTK，会重置重传计数器</p>
-<p>5、重安装攻击的危险之处</p>
-<p>这会导致什么呢？导致客户端同意接受一些之前收到过得信息，这就导致了重放攻击成功<br><img src="http://image.3001.net/images/20171107/15100442739931.png!small" alt="image.png">    </p>
+<p><strong><span style="">实施过程：</span></strong><span style="">截取消息2，导致AP重发消息1，截取重传的消息1，等待AP发送广播帧，</span><span style="">存下来并传给请求端（此时请求端收到第一次广播帧），再把消息1重发给请求端，导致重安装计数器，</span><span style="">此时即可重放广播帧。</span></p>
+<p><img src="http://image.3001.net/images/20171107/1510044692747.png!small" alt="WPAWPA2漏洞分析（第二部分）"></p>
+<h2 id="攻击-Group-Key-握手（延迟密钥安装）"><a href="#攻击-Group-Key-握手（延迟密钥安装）" class="headerlink" title="攻击 Group Key 握手（延迟密钥安装）"></a>攻击 Group Key 握手（延迟密钥安装）</h2><p>基于即时密钥安装的<strong>改进方法</strong>：将消息2传给AP后再进行攻击，<span style="color: rgb(255, 0, 0);">关键是要收集到重传的消息1</span></p>
+<p><img src="http://image.3001.net/images/20171107/15100447656833.png!small" alt="WPAWPA2漏洞分析（第二部分）"></p>
+<h2 id="攻击-BSS过渡（FT）握手"><a href="#攻击-BSS过渡（FT）握手" class="headerlink" title="攻击 BSS过渡（FT）握手"></a>攻击 BSS过渡（FT）握手</h2><p><strong><span style="color: rgb(255, 41, 65);">攻击FT握手区别于别的握手在于，此次攻击的是AP</span></strong></p>
+<p>在同一个网络的不同AP之间漫游的时候，使用这个协议（类似校园网，一个网络多个AP）</p>
+<p>原则上AP和客户端要在认证阶段结束后就安装PTK，802.1x端口在握手结束后再打开<span style="color: rgb(255, 70, 53);">（端口打开的意思是非认证信息可以通过）</span>即当重新关联的时候不再重新安装PTK</p>
+<p>以下是TF握手原理图</p>
+<p><img src="http://image.3001.net/images/20171107/15100447778682.png!small" alt="WPAWPA2漏洞分析（第二部分）">    </p>
+<p>前两条消息是认证消息（认证帧），后两条消息是来传送GTK和身份验证的（叫做重新关联帧）</p>
+<p>现实中大部分设备会在第4条消息后安装PTK，所以可以利用重发第三四条消息重置相关随机数</p>
+<p><strong>目的：</strong>重放数据帧</p>
+<p><strong>方法：</strong>窃听握手过程，拿到第三帧，重放给AP，AP重置随机数，可重放用户数据给AP 来进行重放攻击</p>
 
       
     </div>
@@ -428,14 +403,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/11/13/krack介绍/" rel="next" title="krack介绍">
+                <i class="fa fa-chevron-left"></i> krack介绍
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/11/14/krack介绍(二)/" rel="prev" title="krack介绍(二)">
-                krack介绍(二) <i class="fa fa-chevron-right"></i>
+              <a href="/2018/05/11/基础巩固-C++-存储持续性、链接性和作用域/" rel="prev" title="C++-存储持续性、链接性和作用域">
+                C++-存储持续性、链接性和作用域 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -586,7 +565,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、这个攻击方法的名字是什么？"><span class="nav-number">1.</span> <span class="nav-text">1、这个攻击方法的名字是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、KRACK的目的是什么？"><span class="nav-number">2.</span> <span class="nav-text">2、KRACK的目的是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、进行KRACK需要的条件是什么？"><span class="nav-number">3.</span> <span class="nav-text">3、进行KRACK需要的条件是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、攻击的是什么环节？"><span class="nav-number">4.</span> <span class="nav-text">4、攻击的是什么环节？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、KRACK的具体攻击过程原理和方法"><span class="nav-number">5.</span> <span class="nav-text">5、KRACK的具体攻击过程原理和方法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#密码学知识"><span class="nav-number">1.</span> <span class="nav-text">密码学知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#攻击仅接受加密信息重传设备的四次握手-nbsp-nbsp"><span class="nav-number">2.</span> <span class="nav-text">攻击仅接受加密信息重传设备的四次握手  </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#攻击-Group-Key-握手（延迟密钥安装）"><span class="nav-number">3.</span> <span class="nav-text">攻击 Group Key 握手（延迟密钥安装）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#攻击-BSS过渡（FT）握手"><span class="nav-number">4.</span> <span class="nav-text">攻击 BSS过渡（FT）握手</span></a></li></ol></div>
             
 
           </div>
