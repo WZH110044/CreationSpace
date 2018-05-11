@@ -17,8 +17,12 @@
 
 
 
+  <meta name="description" content="C++-存储持续性、链接性和作用域"/>
 
 
+
+
+  <meta name="keywords" content="C++, 作用域, 叼奶嘴的锅包肉" />
 
 
 
@@ -38,7 +42,7 @@
 
 
 
-<link rel="canonical" href="http://WZH110044.github.io/"/>
+<link rel="canonical" href="http://WZH110044.github.io/2018/05/11/基础巩固-C++-存储持续性、链接性和作用域/"/>
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
@@ -77,7 +81,7 @@
 
 
 
-    <title> 叼奶嘴的锅包肉 </title>
+    <title> C++-存储持续性、链接性和作用域 - 叼奶嘴的锅包肉 </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -206,68 +210,12 @@
         <div class="content-wrapper">
           <div id="content" class="content">
             
-  <section id="posts" class="posts">
-    
-      
+  
   <article class="post">
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/05/11/hello-world/">Hello World</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-05-11
-        </span>
-        
-          <div class="post-category">
-            
-              <a href="/categories/Hexo教程/">Hexo教程</a>
-            
-          </div>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/05/11/基础巩固-C++-存储持续性、链接性和作用域/">C++-存储持续性、链接性和作用域</a>
+          C++-存储持续性、链接性和作用域
         
       </h1>
 
@@ -288,14 +236,17 @@
 
     
     
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ifdef-和-define"><span class="toc-text">#ifdef 和 #define</span></a></li></ol>
+    </div>
+  </div>
+
 
     <div class="post-content">
       
-        
-        
-
-        
-          <h1 id="ifdef-和-define"><a href="#ifdef-和-define" class="headerlink" title="#ifdef 和 #define"></a>#ifdef 和 #define</h1><p> 经常在代码中会看到这两个预处理器的编译指令，ifdef的出现是为了防止源文件重复包含另一文件多次，所以在代码中经常会写<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#ifdef COORDIN_H_</span><br><span class="line">...</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure></p>
+        <h1 id="ifdef-和-define"><a href="#ifdef-和-define" class="headerlink" title="#ifdef 和 #define"></a>#ifdef 和 #define</h1><p> 经常在代码中会看到这两个预处理器的编译指令，ifdef的出现是为了防止源文件重复包含另一文件多次，所以在代码中经常会写<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#ifdef COORDIN_H_</span><br><span class="line">...</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure></p>
 <p>代码中的ifdef指的是如果定义过COORDIN_H_就让编译器跳过if块到达endif后面的一行，至于其中的COORDIN_H只是一个标识符，可以取任何名字</p>
 <p>#作用域与链接</p>
 <p>##存储数据方案</p>
@@ -333,28 +284,71 @@
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> namespce <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> a;<span class="comment">//静态外部链接性</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> b;<span class="comment">//静态内部链接性</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">funct</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> count;<span class="comment">//静态无链接性，一直存在，函数外不可用</span></span><br><span class="line">	<span class="keyword">int</span> c;<span class="comment">//自动</span></span><br><span class="line">	<span class="keyword">int</span> a;<span class="comment">//函数体内隐藏全局变量</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">extern</span> <span class="keyword">int</span> a;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-        
       
     </div>
 
     
+      
+      
 
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://WZH110044.github.io">WZH</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://WZH110044.github.io/2018/05/11/基础巩固-C++-存储持续性、链接性和作用域/">http://WZH110044.github.io/2018/05/11/基础巩固-C++-存储持续性、链接性和作用域/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
     
 
-  </article>
-
     
-  </section>
-
-  
-  <nav class="pagination">
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/作用域/">作用域</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/05/11/hello-world/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Hello World</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
     
     
   </nav>
 
+      </footer>
+    
+
+  </article>
+
 
           </div>
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
       </main>
@@ -432,6 +426,11 @@
     </div>
 
     
+  
+  
+
+  
+
 
 
     
