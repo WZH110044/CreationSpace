@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="C++,作用域," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,18 +79,17 @@
 
 
 
-<meta name="description" content="#ifdef 和 #define 经常在代码中会看到这两个预处理器的编译指令，ifdef的出现是为了防止源文件重复包含另一文件多次，所以在代码中经常会写 123#ifdef COORDIN_H_...#endif 代码中的ifdef指的是如果定义过COORDIN_H_就让编译器跳过if块到达endif后面的一行，至于其中的COORDIN_H只是一个标识符，可以取任何名字 #作用域与链接 ##存储数">
-<meta name="keywords" content="C++,作用域">
+<meta name="description" content="#生成函数（母函数）   ##一、普通生成函数解决组合问题我认为生成函数解决组合问题就是把问题转换成二项式或递推关系问题的方法问题  用1元、5元、10元三种纸币能拼出多少种100元的方案？  这其实是一个组合问题，用三种纸币组合成100元这种题用生成函数来做就很方便下面我们来分析这道题  分析1元硬币的使用情况（五元十元可类比） 一元硬币在最终的方案中可能用到0次、1次、2次....... 好，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++-存储持续性、链接性和作用域">
-<meta property="og:url" content="http://WZH110044.github.io/2018/05/11/基础巩固-C++-存储持续性、链接性和作用域/index.html">
+<meta property="og:title" content="叼奶嘴的锅包肉">
+<meta property="og:url" content="http://WZH110044.github.io/2018/05/28/生成函数解决组合问题/index.html">
 <meta property="og:site_name" content="叼奶嘴的锅包肉">
-<meta property="og:description" content="#ifdef 和 #define 经常在代码中会看到这两个预处理器的编译指令，ifdef的出现是为了防止源文件重复包含另一文件多次，所以在代码中经常会写 123#ifdef COORDIN_H_...#endif 代码中的ifdef指的是如果定义过COORDIN_H_就让编译器跳过if块到达endif后面的一行，至于其中的COORDIN_H只是一个标识符，可以取任何名字 #作用域与链接 ##存储数">
+<meta property="og:description" content="#生成函数（母函数）   ##一、普通生成函数解决组合问题我认为生成函数解决组合问题就是把问题转换成二项式或递推关系问题的方法问题  用1元、5元、10元三种纸币能拼出多少种100元的方案？  这其实是一个组合问题，用三种纸币组合成100元这种题用生成函数来做就很方便下面我们来分析这道题  分析1元硬币的使用情况（五元十元可类比） 一元硬币在最终的方案中可能用到0次、1次、2次....... 好，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-11T04:46:18.280Z">
+<meta property="og:updated_time" content="2018-05-28T03:10:09.535Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C++-存储持续性、链接性和作用域">
-<meta name="twitter:description" content="#ifdef 和 #define 经常在代码中会看到这两个预处理器的编译指令，ifdef的出现是为了防止源文件重复包含另一文件多次，所以在代码中经常会写 123#ifdef COORDIN_H_...#endif 代码中的ifdef指的是如果定义过COORDIN_H_就让编译器跳过if块到达endif后面的一行，至于其中的COORDIN_H只是一个标识符，可以取任何名字 #作用域与链接 ##存储数">
+<meta name="twitter:title" content="叼奶嘴的锅包肉">
+<meta name="twitter:description" content="#生成函数（母函数）   ##一、普通生成函数解决组合问题我认为生成函数解决组合问题就是把问题转换成二项式或递推关系问题的方法问题  用1元、5元、10元三种纸币能拼出多少种100元的方案？  这其实是一个组合问题，用三种纸币组合成100元这种题用生成函数来做就很方便下面我们来分析这道题  分析1元硬币的使用情况（五元十元可类比） 一元硬币在最终的方案中可能用到0次、1次、2次....... 好，">
 
 
 
@@ -120,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://WZH110044.github.io/2018/05/11/基础巩固-C++-存储持续性、链接性和作用域/"/>
+  <link rel="canonical" href="http://WZH110044.github.io/2018/05/28/生成函数解决组合问题/"/>
 
 
 
 
 
-  <title>C++-存储持续性、链接性和作用域 | 叼奶嘴的锅包肉</title>
+  <title> | 叼奶嘴的锅包肉</title>
   
 
 
@@ -243,7 +242,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://WZH110044.github.io/2018/05/11/基础巩固-C++-存储持续性、链接性和作用域/">
+    <link itemprop="mainEntityOfPage" href="http://WZH110044.github.io/2018/05/28/生成函数解决组合问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="WZH">
@@ -260,7 +259,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">C++-存储持续性、链接性和作用域</h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -272,8 +271,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-11T12:45:44+08:00">
-                2018-05-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-28T11:09:34+08:00">
+                2018-05-28
               </time>
             
 
@@ -282,28 +281,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/基础巩固/" itemprop="url" rel="index">
-                    <span itemprop="name">基础巩固</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -332,43 +309,31 @@
       
 
       
-        <h1 id="ifdef-和-define"><a href="#ifdef-和-define" class="headerlink" title="#ifdef 和 #define"></a>#ifdef 和 #define</h1><p> 经常在代码中会看到这两个预处理器的编译指令，ifdef的出现是为了防止源文件重复包含另一文件多次，所以在代码中经常会写<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#ifdef COORDIN_H_</span><br><span class="line">...</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure></p>
-<p>代码中的ifdef指的是如果定义过COORDIN_H_就让编译器跳过if块到达endif后面的一行，至于其中的COORDIN_H只是一个标识符，可以取任何名字</p>
-<p>#作用域与链接</p>
-<p>##存储数据方案</p>
+        <p>#生成函数（母函数）  </p>
+<p>##一、普通生成函数解决组合问题<br><em>我认为生成函数解决组合问题就是把问题转换成二项式或递推关系问题的方法</em><br>问题</p>
+<hr>
+<p>用1元、5元、10元三种纸币能拼出多少种100元的方案？</p>
+<hr>
+<p>这其实是一个组合问题，用三种纸币组合成100元<br>这种题用生成函数来做就很方便<br>下面我们来分析这道题</p>
 <ul>
-<li><strong>自动</strong>存储持续性<br>在执行函数或代码块时被创建，在执行完函数或代码块的时候，内存被释放</li>
-<li><strong>静态</strong>存储持续性<br>在函数定义外定义的变量<br>使用关键字static的变量</li>
-<li><strong>动态</strong>存储持续性<br>用new操作符分配的内存要用delete才能释放，又叫自由存储</li>
-</ul>
-<p>##作用域和链接</p>
-<p>###作用域</p>
-<ul>
-<li><p>局部</p>
-<pre><code>在代码块内使用的
-</code></pre></li>
-<li><p>全局</p>
-<pre><code>在定义之后到文件结尾都可用的
-</code></pre></li>
-<li><p>函数原型作用域</p>
-<pre><code>在参数列表的括号内
-</code></pre></li>
-<li><p>类作用域</p>
-<pre><code>在类中有效
-</code></pre></li>
-<li><p>名称空间作用域</p>
-<pre><code>整个名称空间有效
-</code></pre><p>###链接性</p>
-</li>
-<li><p>外部</p>
-<pre><code>可在文件间共享
-</code></pre></li>
-<li><p>内部</p>
-<pre><code>在文件内共享
-</code></pre><p>###5种变量对应的特性<br>存储描述     | 持续性|作用域|链接性|声明<br>——– | —<br>自动 | 自动|代码块|无|在代码块中<br>寄存器   |自动|代码块|无|在代码块中<br>静态无链接性   | 静态|代码块|无|在代码块中，static<br>静态外部链接性|静态|文件|外部|在函数外面<br>静态内部链接性|静态|文件|内部|在函数外面，static</p>
+<li><p>分析1元硬币的使用情况（五元十元可类比）</p>
+<pre><code>一元硬币在最终的方案中可能用到0次、1次、2次.......
+</code></pre><p>好，接下来，我们尝试将这个问题<strong>转换</strong>成二项式问题<br>我们将0次写为$x^0$,1次写为$x^1$,2次写成$x^2$<br>则，针对1元硬币的所有情况就可以表示为$A=x^0+x^1+x^2…$<br><strong>类比</strong>到其他两种硬币：<br>五元硬币：$B=x^0+x^5+x^{10}…$<br>十元硬币：$C=x^0+x^{10}+x^{20}…$<br>所以硬币组合的所有情况就是将以上三个多项式相乘<br>$AllCount=(x^0+x^1+x^2…)<em>(x^0+x^5+x^{10}…)</em>(x^0+x^{10}+x^{20}…)$<br><strong>稍微观察可知，给出一个 和n，则多项式展开后的$x^n$项的系数就是组合成n的组合的数量，我们现在想把它化成一个$(m+x)^n$的形式，这样我们就可以用二项式的系数公式解决问题了。</strong><br>但是，我们不可能全部打开计算，那就是穷举了，所以要利用数学知识来解决这个问题<br>观察一元硬币的表达式，明显是等比数列，则可利用等比数列求和公式得到                </p>
 </li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> namespce <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> a;<span class="comment">//静态外部链接性</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> b;<span class="comment">//静态内部链接性</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">funct</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> count;<span class="comment">//静态无链接性，一直存在，函数外不可用</span></span><br><span class="line">	<span class="keyword">int</span> c;<span class="comment">//自动</span></span><br><span class="line">	<span class="keyword">int</span> a;<span class="comment">//函数体内隐藏全局变量</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">extern</span> <span class="keyword">int</span> a;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<center>$A=\displaystyle\frac{1-x^n}{1-x}$</center>
+
+<p>我们再来化简这个式子，我们知道x的取值实际上是没有意义的，所以为了化简，我们规定<center>$0&lt;x&lt;1$</center><br>所以可得：</p>
+<center>$A=\displaystyle\frac{1}{1-x}$</center><br>类比得：<center>$B=\displaystyle\frac{1}{1-x^5}\ \ \ \ C=\displaystyle\frac{1}{1-x^{10}}$</center>
+
+<p>这个时候我们发现A<em>B</em>C不能化简成一个二项式的形式，也就是说不能用组合数来表示第N项前面的系数<br>所以我们转而求其递推式$D_n$<br>A式不动，仍旧表示只用1元硬币的情况，我们来分析一下A中的系数表示<br>由于$A*(1-x) = 1$得到$A-Ax = 1$说明$A_n=A_{n-1} (A_n表示A式指数为n项的系数）$<br>这是为什么呢？由于$Ax$可以看做将A的每一项指数加1，相减后剩下第一项$x^0$，后面的项都减没了，说明n-1项的系数与n项的系数是一样的即：$A_n=A_{n-1}$<br>接下来用同样的方法处理，我们用N式表示用1元和5元的情况,D式表示全用的情况即：</p>
+<p><center>$N = （x^0+x^5+x^{10}…）A$</center></p>
+<p><center>$D = （x^0+x^{10}+x^{20}…）N$</center><br>我们处理一下上式：</p>
+<p><center>$N(1-x^5)-A=0 $  打开得 $N-Nx^5-A=0$</center><br>得：<center>$N_n -N_{n-5}-A_n=0$</center><br>同理可得：<center>$D_n -D_{n-10}-N_n=0$</center><br>这样我们就得到了一个递推关系式：</p>
+<p><center>$D_n = D_{N-10}+N_n$<br>$N_n =N_{n-5}+A_n$<br>$A_n = A_{n-1} = 1$</center><br>按照此递归关系式可以得到线性时间的$D_n$算法<br>代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gene5</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n &lt; <span class="number">5</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> gene5(n - <span class="number">5</span>) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">generation</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n &lt; <span class="number">5</span>) &#123; <span class="keyword">return</span> <span class="number">1</span>; &#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(n&lt;<span class="number">10</span>)<span class="keyword">return</span> gene5(n);</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> generation(n - <span class="number">10</span>) + gene5(n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;generation(<span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>##二、指数生成函数助攻解决排列问题</p>
+<p>##三、生成函数求解任意常系数k阶齐次递推关系</p>
+<p>##四、一些例子和总结<br>…未完</p>
 
       
     </div>
@@ -384,14 +349,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/C/" rel="tag"># C++</a>
-          
-            <a href="/tags/作用域/" rel="tag"># 作用域</a>
-          
-        </div>
-      
 
       
       
@@ -401,8 +358,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/11/14/krack介绍(二)/" rel="next" title="Key Reinstallation Atacks(密钥重安装攻击)介绍(二)">
-                <i class="fa fa-chevron-left"></i> Key Reinstallation Atacks(密钥重安装攻击)介绍(二)
+              <a href="/2018/05/16/回调函数/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
               </a>
             
           </div>
@@ -410,10 +367,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/16/回调函数/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -470,17 +423,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -558,22 +502,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ifdef-和-define"><span class="nav-number">1.</span> <span class="nav-text">#ifdef 和 #define</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
