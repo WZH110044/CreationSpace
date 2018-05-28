@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="#ifdef 和 #define 经常在代码中会看到这两个预处理器的编译指令，ifdef的出现是为了防止源文件重复包含另一文件多次，所以在代码中经常会写 123#ifdef COORDIN_H_...#endif 代码中的ifdef指的是如果定义过COORDIN_H_就让编译器跳过if块到达endif后面的一行，至于其中的COORDIN_H只是一个标识符，可以取任何名字 #作用域与链接 ##存储数">
+<meta name="description" content="#ifdef 和 #define 经常在代码中会看到这两个预处理器的编译指令，ifdef的出现是为了防止源文件重复包含另一文件多次，所以在代码中经常会写 123#ifdef COORDIN_H_...#endif 代码中的ifdef指的是如果定义过COORDIN_H_就让编译器跳过if块到达endif后面的一行，至于其中的COORDIN_H只是一个标识符，可以取任何名字 作用域与链接存储数据方案">
 <meta name="keywords" content="C++,作用域">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++-存储持续性、链接性和作用域">
 <meta property="og:url" content="http://WZH110044.github.io/2018/05/11/基础巩固-C++-存储持续性、链接性和作用域/index.html">
 <meta property="og:site_name" content="叼奶嘴的锅包肉">
-<meta property="og:description" content="#ifdef 和 #define 经常在代码中会看到这两个预处理器的编译指令，ifdef的出现是为了防止源文件重复包含另一文件多次，所以在代码中经常会写 123#ifdef COORDIN_H_...#endif 代码中的ifdef指的是如果定义过COORDIN_H_就让编译器跳过if块到达endif后面的一行，至于其中的COORDIN_H只是一个标识符，可以取任何名字 #作用域与链接 ##存储数">
+<meta property="og:description" content="#ifdef 和 #define 经常在代码中会看到这两个预处理器的编译指令，ifdef的出现是为了防止源文件重复包含另一文件多次，所以在代码中经常会写 123#ifdef COORDIN_H_...#endif 代码中的ifdef指的是如果定义过COORDIN_H_就让编译器跳过if块到达endif后面的一行，至于其中的COORDIN_H只是一个标识符，可以取任何名字 作用域与链接存储数据方案">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-05-11T04:46:18.280Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++-存储持续性、链接性和作用域">
-<meta name="twitter:description" content="#ifdef 和 #define 经常在代码中会看到这两个预处理器的编译指令，ifdef的出现是为了防止源文件重复包含另一文件多次，所以在代码中经常会写 123#ifdef COORDIN_H_...#endif 代码中的ifdef指的是如果定义过COORDIN_H_就让编译器跳过if块到达endif后面的一行，至于其中的COORDIN_H只是一个标识符，可以取任何名字 #作用域与链接 ##存储数">
+<meta name="twitter:description" content="#ifdef 和 #define 经常在代码中会看到这两个预处理器的编译指令，ifdef的出现是为了防止源文件重复包含另一文件多次，所以在代码中经常会写 123#ifdef COORDIN_H_...#endif 代码中的ifdef指的是如果定义过COORDIN_H_就让编译器跳过if块到达endif后面的一行，至于其中的COORDIN_H只是一个标识符，可以取任何名字 作用域与链接存储数据方案">
 
 
 
@@ -334,38 +334,33 @@
       
         <h1 id="ifdef-和-define"><a href="#ifdef-和-define" class="headerlink" title="#ifdef 和 #define"></a>#ifdef 和 #define</h1><p> 经常在代码中会看到这两个预处理器的编译指令，ifdef的出现是为了防止源文件重复包含另一文件多次，所以在代码中经常会写<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#ifdef COORDIN_H_</span><br><span class="line">...</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure></p>
 <p>代码中的ifdef指的是如果定义过COORDIN_H_就让编译器跳过if块到达endif后面的一行，至于其中的COORDIN_H只是一个标识符，可以取任何名字</p>
-<p>#作用域与链接</p>
-<p>##存储数据方案</p>
-<ul>
+<h1 id="作用域与链接"><a href="#作用域与链接" class="headerlink" title="作用域与链接"></a>作用域与链接</h1><h2 id="存储数据方案"><a href="#存储数据方案" class="headerlink" title="存储数据方案"></a>存储数据方案</h2><ul>
 <li><strong>自动</strong>存储持续性<br>在执行函数或代码块时被创建，在执行完函数或代码块的时候，内存被释放</li>
 <li><strong>静态</strong>存储持续性<br>在函数定义外定义的变量<br>使用关键字static的变量</li>
 <li><strong>动态</strong>存储持续性<br>用new操作符分配的内存要用delete才能释放，又叫自由存储</li>
 </ul>
-<p>##作用域和链接</p>
-<p>###作用域</p>
-<ul>
+<h2 id="作用域和链接"><a href="#作用域和链接" class="headerlink" title="作用域和链接"></a>作用域和链接</h2><h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><ul>
 <li><p>局部</p>
-<pre><code>在代码块内使用的
+<pre><code>  在代码块内使用的
 </code></pre></li>
 <li><p>全局</p>
-<pre><code>在定义之后到文件结尾都可用的
+<pre><code>  在定义之后到文件结尾都可用的
 </code></pre></li>
 <li><p>函数原型作用域</p>
-<pre><code>在参数列表的括号内
+<pre><code> 在参数列表的括号内
 </code></pre></li>
 <li><p>类作用域</p>
-<pre><code>在类中有效
+<pre><code>  在类中有效
 </code></pre></li>
 <li><p>名称空间作用域</p>
-<pre><code>整个名称空间有效
-</code></pre><p>###链接性</p>
-</li>
+<pre><code>  整个名称空间有效
+</code></pre><h3 id="链接性"><a href="#链接性" class="headerlink" title="链接性"></a>链接性</h3></li>
 <li><p>外部</p>
-<pre><code>可在文件间共享
+<pre><code>  可在文件间共享
 </code></pre></li>
 <li><p>内部</p>
-<pre><code>在文件内共享
-</code></pre><p>###5种变量对应的特性<br>存储描述     | 持续性|作用域|链接性|声明<br>——– | —<br>自动 | 自动|代码块|无|在代码块中<br>寄存器   |自动|代码块|无|在代码块中<br>静态无链接性   | 静态|代码块|无|在代码块中，static<br>静态外部链接性|静态|文件|外部|在函数外面<br>静态内部链接性|静态|文件|内部|在函数外面，static</p>
+<pre><code>  在文件内共享
+</code></pre><h3 id="5种变量对应的特性"><a href="#5种变量对应的特性" class="headerlink" title="5种变量对应的特性"></a>5种变量对应的特性</h3><p>存储描述     | 持续性|作用域|链接性|声明<br>———— | —-<br>自动 | 自动|代码块|无|在代码块中<br>寄存器   |自动|代码块|无|在代码块中<br>静态无链接性   | 静态|代码块|无|在代码块中，static<br>静态外部链接性|静态|文件|外部|在函数外面<br>静态内部链接性|静态|文件|内部|在函数外面，static</p>
 </li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> namespce <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> a;<span class="comment">//静态外部链接性</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> b;<span class="comment">//静态内部链接性</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">funct</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> count;<span class="comment">//静态无链接性，一直存在，函数外不可用</span></span><br><span class="line">	<span class="keyword">int</span> c;<span class="comment">//自动</span></span><br><span class="line">	<span class="keyword">int</span> a;<span class="comment">//函数体内隐藏全局变量</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">extern</span> <span class="keyword">int</span> a;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -568,7 +563,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ifdef-和-define"><span class="nav-number">1.</span> <span class="nav-text">#ifdef 和 #define</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ifdef-和-define"><span class="nav-number">1.</span> <span class="nav-text">#ifdef 和 #define</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作用域与链接"><span class="nav-number">2.</span> <span class="nav-text">作用域与链接</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#存储数据方案"><span class="nav-number">2.1.</span> <span class="nav-text">存储数据方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域和链接"><span class="nav-number">2.2.</span> <span class="nav-text">作用域和链接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域"><span class="nav-number">2.2.1.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链接性"><span class="nav-number">2.2.2.</span> <span class="nav-text">链接性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5种变量对应的特性"><span class="nav-number">2.2.3.</span> <span class="nav-text">5种变量对应的特性</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
