@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="叼奶嘴的锅包肉">
 <meta property="og:description" content="生成函数（母函数）一、普通生成函数解决组合问题我认为生成函数解决组合问题就是把问题转换成二项式或递推关系问题的方法问题  用1元、5元、10元三种纸币能拼出多少种100元的方案？  这其实是一个组合问题，用三种纸币组合成100元这种题用生成函数来做就很方便下面我们来分析这道题  分析1元硬币的使用情况（五元十元可类比）   一元硬币在最终的方案中可能用到0次、1次、2次....... 好，接下来，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-28T04:15:14.733Z">
+<meta property="og:updated_time" content="2018-05-28T04:19:09.125Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="生成函数（母函数）解决组合问题">
 <meta name="twitter:description" content="生成函数（母函数）一、普通生成函数解决组合问题我认为生成函数解决组合问题就是把问题转换成二项式或递推关系问题的方法问题  用1元、5元、10元三种纸币能拼出多少种100元的方案？  这其实是一个组合问题，用三种纸币组合成100元这种题用生成函数来做就很方便下面我们来分析这道题  分析1元硬币的使用情况（五元十元可类比）   一元硬币在最终的方案中可能用到0次、1次、2次....... 好，接下来，">
@@ -345,7 +345,9 @@
 </ul>
 <center>$A=\displaystyle\frac{1-x^n}{1-x}$</center>
 
-<p>我们再来化简这个式子，我们知道x的取值实际上是没有意义的，所以为了化简，我们规定<center>$ 0 < x <1 $="" <="" center=""><br>所以可得：</1></center></p>
+<p>我们再来化简这个式子，我们知道x的取值实际上是没有意义的，所以为了化简，我们规定</p>
+<center>$ 0< x <1 $<="" center="">
+所以可得：
 <center>$A=\displaystyle\frac{1}{1-x}$</center>
 类比得：<center>$B=\displaystyle\frac{1}{1-x^5}\ \ \ \ C=\displaystyle\frac{1}{1-x^{10}}$</center>
 
@@ -357,7 +359,7 @@
 $N_n =N_{n-5}+A_n$
 $A_n = A_{n-1} = 1$</center><br>按照此递归关系式可以得到线性时间的$D_n$算法<br>代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gene5</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n &lt; <span class="number">5</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> gene5(n - <span class="number">5</span>) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">generation</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n &lt; <span class="number">5</span>) &#123; <span class="keyword">return</span> <span class="number">1</span>; &#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(n&lt;<span class="number">10</span>)<span class="keyword">return</span> gene5(n);</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> generation(n - <span class="number">10</span>) + gene5(n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;generation(<span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="二、指数生成函数助攻解决排列问题"><a href="#二、指数生成函数助攻解决排列问题" class="headerlink" title="二、指数生成函数助攻解决排列问题"></a>二、指数生成函数助攻解决排列问题</h2><h2 id="三、生成函数求解任意常系数k阶齐次递推关系"><a href="#三、生成函数求解任意常系数k阶齐次递推关系" class="headerlink" title="三、生成函数求解任意常系数k阶齐次递推关系"></a>三、生成函数求解任意常系数k阶齐次递推关系</h2><h2 id="四、一些例子和总结"><a href="#四、一些例子和总结" class="headerlink" title="四、一些例子和总结"></a>四、一些例子和总结</h2><p>…未完</p>
-
+</1></center>
       
     </div>
     
