@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="叼奶嘴的锅包肉">
 <meta property="og:description" content="生成函数（母函数）一、普通生成函数解决组合问题我认为生成函数解决组合问题就是把问题转换成二项式或递推关系问题的方法问题  用1元、5元、10元三种纸币能拼出多少种100元的方案？  这其实是一个组合问题，用三种纸币组合成100元这种题用生成函数来做就很方便下面我们来分析这道题  分析1元硬币的使用情况（五元十元可类比）   一元硬币在最终的方案中可能用到0次、1次、2次....... 好，接下来，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-28T08:00:41.356Z">
+<meta property="og:updated_time" content="2018-06-06T16:57:30.046Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="生成函数（母函数）解决组合问题">
 <meta name="twitter:description" content="生成函数（母函数）一、普通生成函数解决组合问题我认为生成函数解决组合问题就是把问题转换成二项式或递推关系问题的方法问题  用1元、5元、10元三种纸币能拼出多少种100元的方案？  这其实是一个组合问题，用三种纸币组合成100元这种题用生成函数来做就很方便下面我们来分析这道题  分析1元硬币的使用情况（五元十元可类比）   一元硬币在最终的方案中可能用到0次、1次、2次....... 好，接下来，">
@@ -357,7 +357,23 @@
 <p><center>$D_n = D_{N-10}+N_n$
 $N_n =N_{n-5}+A_n$
 $A_n = A_{n-1} = 1$</center><br>按照此递归关系式可以得到线性时间的$D_n$算法<br>代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gene5</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n &lt; <span class="number">5</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> gene5(n - <span class="number">5</span>) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">generation</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n &lt; <span class="number">5</span>) &#123; <span class="keyword">return</span> <span class="number">1</span>; &#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(n&lt;<span class="number">10</span>)<span class="keyword">return</span> gene5(n);</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> generation(n - <span class="number">10</span>) + gene5(n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;generation(<span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="二、指数生成函数助攻解决排列问题"><a href="#二、指数生成函数助攻解决排列问题" class="headerlink" title="二、指数生成函数助攻解决排列问题"></a>二、指数生成函数助攻解决排列问题</h2><h2 id="三、生成函数求解任意常系数k阶齐次递推关系"><a href="#三、生成函数求解任意常系数k阶齐次递推关系" class="headerlink" title="三、生成函数求解任意常系数k阶齐次递推关系"></a>三、生成函数求解任意常系数k阶齐次递推关系</h2><h2 id="四、一些例子和总结"><a href="#四、一些例子和总结" class="headerlink" title="四、一些例子和总结"></a>四、一些例子和总结</h2><p>…未完</p>
+<h2 id="二、指数生成函数助攻解决排列问题"><a href="#二、指数生成函数助攻解决排列问题" class="headerlink" title="二、指数生成函数助攻解决排列问题"></a>二、指数生成函数助攻解决排列问题</h2><p>我们搞定了组合问题，但是组合问题的解决方法不能解决排列问题，比如说：</p>
+<hr>
+<p><em>拿6个球，有红球绿球，有多少种方法？</em></p>
+<hr>
+<p>我们来看一下区别，之前钱的问题没有顺序一块和五块哪个先挑出来是无所谓的的因素，这次红绿之间有顺序的问题</p>
+<p>这样我们就没办法用之前的方法来操作了，这时候，我们用到了拉普拉斯提出的另一种生成函数——指数生成函数</p>
+<p>指数生成函数的一般形式是$x+\displaystyle\frac{1}{2!}x^2+\displaystyle\frac{1}{3!}x^3…$<br>处理最后得出的生成函数表达式时要化成这样的基本形式，每项前写上它的系数(不理解看后面)</p>
+<p>我们来看一下与常规生成函数的区别，式子的每一项的指数 n 还是代表选择 n 个绿（红）球<br>如果没有条件约束，两个式子乘起来就是绿球和红球能抽出的所有情况的生成函数<br><strong>但是跟常规生成函数的区别在于，每一项前面多出了一个常数项$\displaystyle\frac{1}{r!}$</strong><br>这个数有什么用呢？</p>
+<p>我猜想它跟组合数有关系，你想要把排列的方案数显示在生成函数中，必须做点什么，我们来看看它到底做了什么才能把组合数巧妙地融合进生成函数中</p>
+<p>先来看看我们想要什么，对于某个确定的n（球的总数），当绿球取r个，红球取n-r个时，我们想要的结果是$\sum\limits_{r=0}^n{C^r_n}$</p>
+<p>明确答案后我们来看一个例子<br>如果是三个球的组合排列，两个红球和三个绿球组成的排列中，对应的项$\displaystyle\frac{1}{2!}x^2$与$\displaystyle\frac{1}{3!}x^3$乘积再化成$x^5$对应的形式</p>
+<p><center>$\displaystyle\frac{10}{5!}x^5$</center><br>那么10就是两个红球和三个绿球的方案数，初见很神奇，看一下其中的原理，我们知道：</p>
+<p><center>$C^r_n = \displaystyle\frac{n!}{r!(n-r)!}$</center><br>而$\displaystyle\frac{1}{2!}x^2$和$\displaystyle\frac{1}{3!}x^3$分别是$\displaystyle\frac{1}{r!}x^r$和$\displaystyle\frac{1}{(n-r)!}x^{n-r}$(n=5,r=2)</p>
+<p>他们的乘积可以化成:</p>
+<p><center>$\displaystyle\frac{\displaystyle\frac{n!}{r!(n-r)!}}{n!}x^n$</center><br>分子就是我们要求的方案数。</p>
+<p>这时候我们验证了从数学上来看这个公式的合理性，我们再想一想，它的物理意义究竟是什么？<br>最终方案数的多少，可以用组合的和来表示，n!代表了针对一个<strong>组合</strong>所有<strong>排列</strong>的合计，而$\displaystyle\frac{1}{r!}x^r$中的$\displaystyle\frac{1}{r!}$用来消除重复的方案数，也就是绿色或红色自己本身的排序。</p>
+<h2 id="三、求解任意常系数k阶齐次递推关系"><a href="#三、求解任意常系数k阶齐次递推关系" class="headerlink" title="三、求解任意常系数k阶齐次递推关系"></a>三、求解任意常系数k阶齐次递推关系</h2><h2 id="四、一些例子和总结"><a href="#四、一些例子和总结" class="headerlink" title="四、一些例子和总结"></a>四、一些例子和总结</h2><p>…未完</p>
 
       
     </div>
@@ -555,7 +571,7 @@ $A_n = A_{n-1} = 1$</center><br>按照此递归关系式可以得到线性时间
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#生成函数（母函数）"><span class="nav-number">1.</span> <span class="nav-text">生成函数（母函数）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、普通生成函数解决组合问题"><span class="nav-number">1.1.</span> <span class="nav-text">一、普通生成函数解决组合问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、指数生成函数助攻解决排列问题"><span class="nav-number">1.2.</span> <span class="nav-text">二、指数生成函数助攻解决排列问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、生成函数求解任意常系数k阶齐次递推关系"><span class="nav-number">1.3.</span> <span class="nav-text">三、生成函数求解任意常系数k阶齐次递推关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、一些例子和总结"><span class="nav-number">1.4.</span> <span class="nav-text">四、一些例子和总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#生成函数（母函数）"><span class="nav-number">1.</span> <span class="nav-text">生成函数（母函数）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、普通生成函数解决组合问题"><span class="nav-number">1.1.</span> <span class="nav-text">一、普通生成函数解决组合问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、指数生成函数助攻解决排列问题"><span class="nav-number">1.2.</span> <span class="nav-text">二、指数生成函数助攻解决排列问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、求解任意常系数k阶齐次递推关系"><span class="nav-number">1.3.</span> <span class="nav-text">三、求解任意常系数k阶齐次递推关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、一些例子和总结"><span class="nav-number">1.4.</span> <span class="nav-text">四、一些例子和总结</span></a></li></ol></li></ol></div>
             
 
           </div>
