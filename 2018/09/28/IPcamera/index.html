@@ -87,10 +87,12 @@
 <meta property="og:site_name" content="叼奶嘴的锅包肉">
 <meta property="og:description" content="一开始拿到IPcamera是为了在预警系统中加入一个摄像头，正好老师带来了一个IPcamera，但是并没有说明书和文档，一开始听到这个名字还以为只要知道了这个IP地址就可以为所欲为了，OK,NO，拿到了地址也并不知道怎么操纵，上网搜了一下“海迪康”这个牌子，搜到了做监控的大厂的海康威视的论坛，里面有海康摄像头的开发者说明书，下了一个ActiveX插件，很迷，改了UID和密码试了一下竟然成功连上。这">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-07T14:37:40.678Z">
+<meta property="og:image" content="https://img-blog.csdn.net/20181007221807779?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:updated_time" content="2018-10-08T04:02:25.736Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="”海迪康”ipcamera客户端开发纪实">
 <meta name="twitter:description" content="一开始拿到IPcamera是为了在预警系统中加入一个摄像头，正好老师带来了一个IPcamera，但是并没有说明书和文档，一开始听到这个名字还以为只要知道了这个IP地址就可以为所欲为了，OK,NO，拿到了地址也并不知道怎么操纵，上网搜了一下“海迪康”这个牌子，搜到了做监控的大厂的海康威视的论坛，里面有海康摄像头的开发者说明书，下了一个ActiveX插件，很迷，改了UID和密码试了一下竟然成功连上。这">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20181007221807779?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 
 
 
@@ -337,6 +339,7 @@
 <p>拿到了通信的数据包，各种猜，我们得出了初步的解析。</p>
 <p><strong>前提条件</strong>：摄像头，电脑连接到同一局域网</p>
 <p><strong>交互流程</strong>：</p>
+<p> <img src="https://img-blog.csdn.net/20181007221807779?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image.png">                 </p>
 <h2 id="2017进展：将摄像头获取到的h264裸流整理保存成264文件，利用ffplay、爱奇艺万能播放器等可以播放"><a href="#2017进展：将摄像头获取到的h264裸流整理保存成264文件，利用ffplay、爱奇艺万能播放器等可以播放" class="headerlink" title="2017进展：将摄像头获取到的h264裸流整理保存成264文件，利用ffplay、爱奇艺万能播放器等可以播放"></a>2017进展：将摄像头获取到的h264裸流整理保存成264文件，利用ffplay、爱奇艺万能播放器等可以播放</h2><p>思路：将收到的裸流利用ffmpeg实时编码成yuv数据，利用SDL、OpenGL、Direct3D等底层视频播放技术对YUV数据进行播放</p>
 <p>需要解决的问题：首先ffmpeg的例子针对视频的解码都是以文件为对象的，也就是说无法实时进行解码，想要解码一定要先保存成文件再进行解码操作，看了ffmpeg源码，他的内部是逐帧进行操作的，但是想要灵活运用ffmpeg源码还是有难度的，不知道ffmpeg有关的函数，而且底层播放技术也不熟悉，这是个问题！下一步是学习ffmpeg的解码处理过程以及其中用到的函数。</p>
 <h2 id="2018进展：利用回调方法实现了ffmpeg解码-SDL实时播放的功能，但有明显卡顿和延迟"><a href="#2018进展：利用回调方法实现了ffmpeg解码-SDL实时播放的功能，但有明显卡顿和延迟" class="headerlink" title="2018进展：利用回调方法实现了ffmpeg解码+SDL实时播放的功能，但有明显卡顿和延迟"></a>2018进展：利用回调方法实现了ffmpeg解码+SDL实时播放的功能，但有明显卡顿和延迟</h2><p><strong>过程</strong>：在找到ffmpeg回调方法之后，尝试了利用文件作为缓冲“实时”播放视频，将视频循环存储到9个文件中，程序依次读取文件并进行播放，第一次在实时播放上有了进展，但是毕竟存和读不能同时进行，所以势必会有延迟，而且打开文件的间隙会卡顿。于是在雷神的博客中找到了内存中取数据解码利用回调函数进行解码播放。</p>
