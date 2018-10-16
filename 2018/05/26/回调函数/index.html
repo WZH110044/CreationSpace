@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="如果你想让我受苦,你就无法阻止我去爱">
+<meta name="description" content="回调函数在一开始遇见函数指针的知识点的时候十分不理解为什么要用函数指针，感觉你他妈要用函数就特么用呗，非得写尼玛的参数里啊，fuck！！@#￥ 然后就看到了排序算法的用法，因为不可能只有基本类型的变量要你排序，还会排结构体，今天我想用年龄论资排辈就用年龄，明天我想用工资就用工资，那怎么实现排序呢，难道每次都要对我的函数进行修改吗？ 其实需要修改的只是排序规则，这时候就应该用函数指针，把函数（规则）">
 <meta name="keywords" content="回调函数">
 <meta property="og:type" content="article">
 <meta property="og:title" content="回调函数">
 <meta property="og:url" content="http://WZH110044.github.io/2018/05/26/回调函数/index.html">
 <meta property="og:site_name" content="叼奶嘴的锅包肉">
-<meta property="og:description" content="如果你想让我受苦,你就无法阻止我去爱">
+<meta property="og:description" content="回调函数在一开始遇见函数指针的知识点的时候十分不理解为什么要用函数指针，感觉你他妈要用函数就特么用呗，非得写尼玛的参数里啊，fuck！！@#￥ 然后就看到了排序算法的用法，因为不可能只有基本类型的变量要你排序，还会排结构体，今天我想用年龄论资排辈就用年龄，明天我想用工资就用工资，那怎么实现排序呢，难道每次都要对我的函数进行修改吗？ 其实需要修改的只是排序规则，这时候就应该用函数指针，把函数（规则）">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-07T07:06:37.969Z">
+<meta property="og:updated_time" content="2018-10-16T06:07:11.866Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="回调函数">
-<meta name="twitter:description" content="如果你想让我受苦,你就无法阻止我去爱">
+<meta name="twitter:description" content="回调函数在一开始遇见函数指针的知识点的时候十分不理解为什么要用函数指针，感觉你他妈要用函数就特么用呗，非得写尼玛的参数里啊，fuck！！@#￥ 然后就看到了排序算法的用法，因为不可能只有基本类型的变量要你排序，还会排结构体，今天我想用年龄论资排辈就用年龄，明天我想用工资就用工资，那怎么实现排序呢，难道每次都要对我的函数进行修改吗？ 其实需要修改的只是排序规则，这时候就应该用函数指针，把函数（规则）">
 
 
 
@@ -332,7 +332,13 @@
       
 
       
-        
+        <h2 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h2><p>在一开始遇见函数指针的知识点的时候十分不理解为什么要用函数指针，感觉你他妈要用函数就特么用呗，非得写尼玛的参数里啊，fuck！！@#￥</p>
+<p>然后就看到了排序算法的用法，因为不可能只有基本类型的变量要你排序，还会排结构体，今天我想用年龄论资排辈就用年龄，明天我想用工资就用工资，那怎么实现排序呢，难道每次都要对我的函数进行修改吗？</p>
+<p>其实需要修改的只是排序规则，这时候就应该用函数指针，把函数（规则）当做参数传入我的排序函数，<strong>将逻辑和排序规则分开</strong>。</p>
+<p>其实这时候我已经接触到了回调函数的概念了，但是当时的我并不知道！</p>
+<p>在用ffmpeg开发的时候，第一次见到了别人用回调函数，才了解到回调的方法在工程开发时应该是非常重要的，库的开发者将需要用户决定的部分以回调函数的形式开放出去，像一个接口一样给用户定制。</p>
+<p>ffmpeg的read_packet（）就是一个例子，每当解码时缺少数据就会触发回调函数（调用read_packet）获取数据，而用户根据自己的情况编写（实现read_packet）如何获得数据（读内存还是读文件等等）</p>
+
       
     </div>
     
@@ -431,8 +437,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -510,6 +525,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#回调函数"><span class="nav-number">1.</span> <span class="nav-text">回调函数</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
