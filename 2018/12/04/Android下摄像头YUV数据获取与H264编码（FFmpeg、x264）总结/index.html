@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="C++,作用域," />
+  <meta name="keywords" content="FFmpeg,h264,编解码,Android," />
 
 
 
@@ -79,18 +79,22 @@
 
 
 
-<meta name="description" content="#ifdef 和 #define 经常在代码中会看到这两个预处理器的编译指令，ifdef的出现是为了防止源文件重复包含另一文件多次，所以在代码中经常会写 123#ifdef COORDIN_H_...#endif 代码中的ifdef指的是如果定义过COORDIN_H_就让编译器跳过if块到达endif后面的一行，至于其中的COORDIN_H只是一个标识符，可以取任何名字 作用域与链接存储数据方案">
-<meta name="keywords" content="C++,作用域">
+<meta name="description" content="涉及知识点： Camera2 API使用 YUV420P与YUV420SP（NV21）格式转换 h264文件格式 FFmpeg工程 x264解码器  这次就先记录一下开发过程，因为牵涉到的很多技术问题都不太清楚，Android的知识都不太记得了，还有一些知识牵扯到这些开源工程的内部实现，待以后慢慢学习再写。这个小demo就是做一个摄像头数据的获取与编码存储，由于这个demo的目的是为了给学习直播技">
+<meta name="keywords" content="FFmpeg,h264,编解码,Android">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++-存储持续性、链接性和作用域">
-<meta property="og:url" content="http://WZH110044.github.io/2018/05/11/基础巩固-C++-存储持续性、链接性和作用域/index.html">
+<meta property="og:title" content="Android下摄像头YUV数据获取与H264编码（FFmpeg、x264）总结">
+<meta property="og:url" content="http://WZH110044.github.io/2018/12/04/Android下摄像头YUV数据获取与H264编码（FFmpeg、x264）总结/index.html">
 <meta property="og:site_name" content="叼奶嘴的锅包肉">
-<meta property="og:description" content="#ifdef 和 #define 经常在代码中会看到这两个预处理器的编译指令，ifdef的出现是为了防止源文件重复包含另一文件多次，所以在代码中经常会写 123#ifdef COORDIN_H_...#endif 代码中的ifdef指的是如果定义过COORDIN_H_就让编译器跳过if块到达endif后面的一行，至于其中的COORDIN_H只是一个标识符，可以取任何名字 作用域与链接存储数据方案">
+<meta property="og:description" content="涉及知识点： Camera2 API使用 YUV420P与YUV420SP（NV21）格式转换 h264文件格式 FFmpeg工程 x264解码器  这次就先记录一下开发过程，因为牵涉到的很多技术问题都不太清楚，Android的知识都不太记得了，还有一些知识牵扯到这些开源工程的内部实现，待以后慢慢学习再写。这个小demo就是做一个摄像头数据的获取与编码存储，由于这个demo的目的是为了给学习直播技">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-11T04:46:18.280Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181204233112671.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181204235716893.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181204235922839.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2018-12-04T16:41:20.840Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C++-存储持续性、链接性和作用域">
-<meta name="twitter:description" content="#ifdef 和 #define 经常在代码中会看到这两个预处理器的编译指令，ifdef的出现是为了防止源文件重复包含另一文件多次，所以在代码中经常会写 123#ifdef COORDIN_H_...#endif 代码中的ifdef指的是如果定义过COORDIN_H_就让编译器跳过if块到达endif后面的一行，至于其中的COORDIN_H只是一个标识符，可以取任何名字 作用域与链接存储数据方案">
+<meta name="twitter:title" content="Android下摄像头YUV数据获取与H264编码（FFmpeg、x264）总结">
+<meta name="twitter:description" content="涉及知识点： Camera2 API使用 YUV420P与YUV420SP（NV21）格式转换 h264文件格式 FFmpeg工程 x264解码器  这次就先记录一下开发过程，因为牵涉到的很多技术问题都不太清楚，Android的知识都不太记得了，还有一些知识牵扯到这些开源工程的内部实现，待以后慢慢学习再写。这个小demo就是做一个摄像头数据的获取与编码存储，由于这个demo的目的是为了给学习直播技">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20181204233112671.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==,size_16,color_FFFFFF,t_70">
 
 
 
@@ -120,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://WZH110044.github.io/2018/05/11/基础巩固-C++-存储持续性、链接性和作用域/"/>
+  <link rel="canonical" href="http://WZH110044.github.io/2018/12/04/Android下摄像头YUV数据获取与H264编码（FFmpeg、x264）总结/"/>
 
 
 
 
 
-  <title>C++-存储持续性、链接性和作用域 | 叼奶嘴的锅包肉</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>Android下摄像头YUV数据获取与H264编码（FFmpeg、x264）总结 | 叼奶嘴的锅包肉</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -243,7 +247,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://WZH110044.github.io/2018/05/11/基础巩固-C++-存储持续性、链接性和作用域/">
+    <link itemprop="mainEntityOfPage" href="http://WZH110044.github.io/2018/12/04/Android下摄像头YUV数据获取与H264编码（FFmpeg、x264）总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="WZH">
@@ -260,7 +264,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">C++-存储持续性、链接性和作用域</h1>
+          <h1 class="post-title" itemprop="name headline">Android下摄像头YUV数据获取与H264编码（FFmpeg、x264）总结</h1>
         
 
         <div class="post-meta">
@@ -272,8 +276,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-11T12:45:44+08:00">
-                2018-05-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-04T11:45:44+08:00">
+                2018-12-04
               </time>
             
 
@@ -295,8 +299,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/基础巩固/" itemprop="url" rel="index">
-                    <span itemprop="name">基础巩固</span>
+                  <a href="/categories/FFmpeg/" itemprop="url" rel="index">
+                    <span itemprop="name">FFmpeg</span>
                   </a>
                 </span>
 
@@ -332,38 +336,48 @@
       
 
       
-        <h1 id="ifdef-和-define"><a href="#ifdef-和-define" class="headerlink" title="#ifdef 和 #define"></a>#ifdef 和 #define</h1><p> 经常在代码中会看到这两个预处理器的编译指令，ifdef的出现是为了防止源文件重复包含另一文件多次，所以在代码中经常会写<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#ifdef COORDIN_H_</span><br><span class="line">...</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure></p>
-<p>代码中的ifdef指的是如果定义过COORDIN_H_就让编译器跳过if块到达endif后面的一行，至于其中的COORDIN_H只是一个标识符，可以取任何名字</p>
-<h1 id="作用域与链接"><a href="#作用域与链接" class="headerlink" title="作用域与链接"></a>作用域与链接</h1><h2 id="存储数据方案"><a href="#存储数据方案" class="headerlink" title="存储数据方案"></a>存储数据方案</h2><ul>
-<li><strong>自动</strong>存储持续性<br>在执行函数或代码块时被创建，在执行完函数或代码块的时候，内存被释放</li>
-<li><strong>静态</strong>存储持续性<br>在函数定义外定义的变量<br>使用关键字static的变量</li>
-<li><strong>动态</strong>存储持续性<br>用new操作符分配的内存要用delete才能释放，又叫自由存储</li>
+        <h3 id="涉及知识点："><a href="#涉及知识点：" class="headerlink" title="涉及知识点："></a>涉及知识点：</h3><ul>
+<li>Camera2 API使用</li>
+<li>YUV420P与YUV420SP（NV21）格式转换</li>
+<li>h264文件格式</li>
+<li>FFmpeg工程</li>
+<li>x264解码器</li>
 </ul>
-<h2 id="作用域和链接"><a href="#作用域和链接" class="headerlink" title="作用域和链接"></a>作用域和链接</h2><h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><ul>
-<li><p>局部</p>
-<pre><code>  在代码块内使用的
-</code></pre></li>
-<li><p>全局</p>
-<pre><code>  在定义之后到文件结尾都可用的
-</code></pre></li>
-<li><p>函数原型作用域</p>
-<pre><code> 在参数列表的括号内
-</code></pre></li>
-<li><p>类作用域</p>
-<pre><code>  在类中有效
-</code></pre></li>
-<li><p>名称空间作用域</p>
-<pre><code>  整个名称空间有效
-</code></pre><h3 id="链接性"><a href="#链接性" class="headerlink" title="链接性"></a>链接性</h3></li>
-<li><p>外部</p>
-<pre><code>  可在文件间共享
-</code></pre></li>
-<li><p>内部</p>
-<pre><code>  在文件内共享
-</code></pre><h3 id="5种变量对应的特性"><a href="#5种变量对应的特性" class="headerlink" title="5种变量对应的特性"></a>5种变量对应的特性</h3><p>存储描述     | 持续性|作用域|链接性|声明<br>———— | —-<br>自动 | 自动|代码块|无|在代码块中<br>寄存器   |自动|代码块|无|在代码块中<br>静态无链接性   | 静态|代码块|无|在代码块中，static<br>静态外部链接性|静态|文件|外部|在函数外面<br>静态内部链接性|静态|文件|内部|在函数外面，static</p>
+<p>这次就先记录一下开发过程，因为牵涉到的很多技术问题都不太清楚，Android的知识都不太记得了，还有一些知识牵扯到这些开源工程的内部实现，待以后慢慢学习再写。<br>这个小demo就是做一个摄像头数据的获取与编码存储，由于这个demo的目的是为了给学习直播技术打基础，所以对编码速度有一定要求。<br>指标：编码耗费时间必须在33.3ms以下<br>指标说明：由于摄像头采集速度一般在30fps左右，所以编码速度不能小于这个值，否则就会出现编码速度跟不上视频获取速度的情况，造成帧的积压与丢失。</p>
+<p>很久没有写过Android代码了，Android开发的资料还是丰富，官方文档比较详细，再看FFmpeg的文档，非核心的函数也就有个返回值类型的说明了</p>
+<ul>
+<li><p>Camera 2 API<br><a href="https://developer.android.google.cn/reference/android/hardware/camera2/package-summary" target="_blank" rel="noopener">https://developer.android.google.cn/reference/android/hardware/camera2/package-summary</a><br>Camera 2 API是Android API level 21以后添加的摄像头相关库，取代了Camera 1，使用方法有区别，Camera 1其实看起来更清晰，用起来很方便，但是据说Camera 2的优化更好，更省电。</p>
+</li>
+<li><p>YUV420P与NV21格式<br>YUV420P格式和NV21都是对YUV数据进行采样得到的，NV21别名YUV420SP，其中Y是针对亮度（灰度）取样的值，U与V都是色度取样的值，420是YUV的采样比，四个Y分量对应一个U分量和一个V分量，那为什么不写成411格式呢，YUV411与YUV420的区别在于他们的采样方式不同，如图：<br><img src="https://img-blog.csdnimg.cn/20181204233112671.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>420格式，U的取样在水平方向上的步长是2，在竖直方向上也是2，V同理<br>411格式，U、V的取样在竖直方向上分辨率与Y一样，水平方向上是Y的1/4</p>
 </li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> namespce <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> a;<span class="comment">//静态外部链接性</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> b;<span class="comment">//静态内部链接性</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">funct</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> count;<span class="comment">//静态无链接性，一直存在，函数外不可用</span></span><br><span class="line">	<span class="keyword">int</span> c;<span class="comment">//自动</span></span><br><span class="line">	<span class="keyword">int</span> a;<span class="comment">//函数体内隐藏全局变量</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">extern</span> <span class="keyword">int</span> a;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>了解了YUV420采样方式后，来看一下它的储存方式，NV21与YUV420P的差别也在于存储方式<br>YUV420P的存储方式是先把所有Y存起来(YYYYYYYY)，再存U(UU)，再存V(VV)<br>而NV21的存储方式是先存Y(YYYYYYYY)，再将UV交叉存储(VUVU)<br><img src="https://img-blog.csdnimg.cn/20181204235716893.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>所以NV21与YUV420P的转换也就很清晰了<br>安卓手机获取的格式一般是NV21，而解码器一般支持的格式是YUV420P，所以，解码之前要进行一下转换。</p>
+<p><em>注：我在做的时候，有一个小问题，利用Camera 2 和imagereader获取到的YUV数据，虽然我知道是NV21格式的，但是发现它用三个数组将NV21数据存起来。<br>按理说既然UV交叉存储那一般应该用两个数组表示即可，而且Y数据的数量应该是像素总数，比如1920</em>1080的数据，数组大小就应该是2073600，UV数据总和应该是Y的1/2，也就是1036800<br>但是我发现它三个数组大小分别是2073600，1036800，1036800，为什么凭空多了一组1/2大小的数据<em><br><img src="https://img-blog.csdnimg.cn/20181204235922839.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">
+</em>于是将数据输出后发现，第三个数组与第二个数组其实是相同的，不过是错位的，第三个数组相比第二个数组整体右移了一个字节，最前面用了一个值来填充<br>有意思的是我一开始进行转换的时候，编码后我打开视频发现我的颜色有的不对，蓝色变为橙色，非常有趣，后将VU数据调换，按正常输出，得知是由于VU数据搞反了，有空可以了解一下具体的原理。*</p>
+<ul>
+<li>h264文件格式</li>
+</ul>
+<p><a href="https://blog.csdn.net/h514434485/article/details/52064945" target="_blank" rel="noopener">https://blog.csdn.net/h514434485/article/details/52064945</a></p>
+<ul>
+<li>FFmpeg工程</li>
+</ul>
+<p>之前通过雷神的博客了解到FFmpeg工程，用来做过摄像头获取到的H264数据的解码<br><a href="https://blog.csdn.net/github_37209555/article/details/79530302" target="_blank" rel="noopener">海迪康ipcamera客户端开发纪实</a><br>FFmpeg是一款非常强大的音视频处理工程，C语言编写，写的非常漂亮，可读性很强，下一步继续阅读FFplay的源码，和FFmpeg的编码部分源码<br>这次一开始用FFmpeg做H264的编码工作，首先利用NDK在linux平台上对FFmpeg与x264进行了交叉编译，使之可在arm架构下运行，接下来的工作就是对FFmpeg进行参数调优。但是效果不理想后直接试用x264工程。</p>
+<ul>
+<li>编码器调优总结</li>
+</ul>
+<p>一开始使用ffmpe编码（ffmpe的264视频编码也是基于X264库），编码一帧的时间非常不稳定，但都不满足要求（一帧处理时间应达到33ms以下），一般在80ms以上，偶尔100-200ms<br>此时的ffmpeg设置是，ultrafast，zerolatency（无帧缓存），线程数3-6差距都不大（手机4核处理器，设置6是因为看到有说线程数实际要除以1.5），与1比稍有提升<br>处理时间包括：</p>
+<ol>
+<li>将NV21数据转换成YUV420P的时间      </li>
+<li>ffmpeg与X264编码器之间的调用时间      </li>
+<li>x264编码器编码的时间      </li>
+<li>写文件的时间</li>
+</ol>
+<p>写文件时间占用非常少，所以推测瓶颈在于ffmpeg这步调用，由于不是内部编码器，所以可能要进行内存之间的复制<br>重新编译了x264库，配置了AS，重写了一个调用264库的类，封装好给java层调用，编码速度有了质的提升。<br>然后优化了一下转换函数，缩减到10ms以下，解码时间在20ms左右，基本上能满足解码需求，在多线程操作时，可以看出解码速度已经可以匹配获取图像的速度，但是发现慢慢会落后待编码帧，查找原因在于有时解码速度会变成40-50ms一帧，这就造成慢慢拉大差距，我猜测是由于多线程导致，处理器没有分配到。</p>
+<p>各种参数调优后，发现编码器的多线程编码采用自适应比写死好，比如帧编码的并行数，片编码的并行数，将其设为自动</p>
+<pre><code>param.i_threads = 0; //帧编码并行数，0为自动
+param.b_sliced_threads = 0; // 片编码并行数，0为自动
+</code></pre><p>但是在性能提升后还是存在帧的堆积，说明解码线程还是经常没有被调度，导致时间拉长，所以决定在java层动手，干涉CPU的调度，之前用的是thread类的线程优先级设置方式，发现不适用于android，后采用android.os.Process类的设置优先级函数setThreadPriority（int ）<br>与thread类的优先级衡量数值不同(10为最高)，查android文档发现适合视频线程的数值是-10，值越小优先级越高，直到-19。</p>
+<p>这样以后x264在编码速度的优化上已经达到需求了。下一步进行编码质量的优化（对码率进行调优，缩小码率，不影响质量），以及查看FFmpeg的源码，看一看编码流程，到底时间消耗在哪里，且为什么有些设置不起作用，加上音频的编码功能，以及做一下音视频同步及封装。</p>
 
       
     </div>
@@ -381,9 +395,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/C/" rel="tag"># C++</a>
+            <a href="/tags/FFmpeg/" rel="tag"># FFmpeg</a>
           
-            <a href="/tags/作用域/" rel="tag"># 作用域</a>
+            <a href="/tags/h264/" rel="tag"># h264</a>
+          
+            <a href="/tags/编解码/" rel="tag"># 编解码</a>
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
           
         </div>
       
@@ -396,8 +414,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/11/14/krack介绍(二)/" rel="next" title="Key Reinstallation Atacks(密钥重安装攻击)介绍(二)">
-                <i class="fa fa-chevron-left"></i> Key Reinstallation Atacks(密钥重安装攻击)介绍(二)
+              <a href="/2018/09/28/IPcamera/" rel="next" title="”海迪康”ipcamera客户端开发纪实">
+                <i class="fa fa-chevron-left"></i> ”海迪康”ipcamera客户端开发纪实
               </a>
             
           </div>
@@ -405,10 +423,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/26/回调函数/" rel="prev" title="回调函数">
-                回调函数 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -563,7 +577,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ifdef-和-define"><span class="nav-number">1.</span> <span class="nav-text">#ifdef 和 #define</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作用域与链接"><span class="nav-number">2.</span> <span class="nav-text">作用域与链接</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#存储数据方案"><span class="nav-number">2.1.</span> <span class="nav-text">存储数据方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域和链接"><span class="nav-number">2.2.</span> <span class="nav-text">作用域和链接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域"><span class="nav-number">2.2.1.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链接性"><span class="nav-number">2.2.2.</span> <span class="nav-text">链接性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5种变量对应的特性"><span class="nav-number">2.2.3.</span> <span class="nav-text">5种变量对应的特性</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#涉及知识点："><span class="nav-number">1.</span> <span class="nav-text">涉及知识点：</span></a></li></ol></div>
             
 
           </div>
