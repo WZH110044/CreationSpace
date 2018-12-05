@@ -88,7 +88,7 @@
 <meta property="og:description" content="一开始拿到IPcamera是为了在预警系统中加入一个摄像头，正好老师带来了一个IPcamera，但是并没有说明书和文档，一开始听到这个名字还以为只要知道了这个IP地址就可以为所欲为了，OK,NO，拿到了地址也并不知道怎么操纵，上网搜了一下“海迪康”这个牌子，搜到了做监控的大厂的海康威视的论坛，里面有海康摄像头的开发者说明书，下了一个ActiveX插件，很迷，改了UID和密码试了一下竟然成功连上。这">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://img-blog.csdn.net/20181007221807779?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:updated_time" content="2018-10-08T04:02:25.736Z">
+<meta property="og:updated_time" content="2018-12-05T02:43:17.840Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="”海迪康”ipcamera客户端开发纪实">
 <meta name="twitter:description" content="一开始拿到IPcamera是为了在预警系统中加入一个摄像头，正好老师带来了一个IPcamera，但是并没有说明书和文档，一开始听到这个名字还以为只要知道了这个IP地址就可以为所欲为了，OK,NO，拿到了地址也并不知道怎么操纵，上网搜了一下“海迪康”这个牌子，搜到了做监控的大厂的海康威视的论坛，里面有海康摄像头的开发者说明书，下了一个ActiveX插件，很迷，改了UID和密码试了一下竟然成功连上。这">
@@ -352,7 +352,7 @@
 <p><strong>优化方法</strong>：</p>
 <p>1.调节read_packet()读取的buffer长度</p>
 <p>2.优化read_packet()中buf的赋值方法</p>
-<h2 id="最新进展：利用-av-parser-parse2-函数进行逐帧解码，不用回调方法，延迟少于1秒，不卡顿，秒开屏。"><a href="#最新进展：利用-av-parser-parse2-函数进行逐帧解码，不用回调方法，延迟少于1秒，不卡顿，秒开屏。" class="headerlink" title="最新进展：利用 av_parser_parse2() 函数进行逐帧解码，不用回调方法，延迟少于1秒，不卡顿，秒开屏。"></a>最新进展：利用 av_parser_parse2() 函数进行逐帧解码，不用回调方法，延迟少于1秒，不卡顿，秒开屏。</h2><p>果然之前卡顿大部分原因是时间损失到函数调用上，加上这次直接指定视频格式和窗口大小，不需要找解码器，解码流程速度加快。</p>
+<h2 id="最新进展：利用-av-parser-parse2-函数进行分帧并逐帧解码，不用回调方法，延迟少于1秒，不卡顿，秒开屏。"><a href="#最新进展：利用-av-parser-parse2-函数进行分帧并逐帧解码，不用回调方法，延迟少于1秒，不卡顿，秒开屏。" class="headerlink" title="最新进展：利用 av_parser_parse2() 函数进行分帧并逐帧解码，不用回调方法，延迟少于1秒，不卡顿，秒开屏。"></a>最新进展：利用 av_parser_parse2() 函数进行分帧并逐帧解码，不用回调方法，延迟少于1秒，不卡顿，秒开屏。</h2><p>果然之前卡顿大部分原因是时间损失到函数调用和帧缓冲上，加上这次直接指定视频格式和窗口大小，不需要找解码器，解码流程速度加快。</p>
 
       
     </div>
@@ -554,7 +554,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2017进展：将摄像头获取到的h264裸流整理保存成264文件，利用ffplay、爱奇艺万能播放器等可以播放"><span class="nav-number">1.</span> <span class="nav-text">2017进展：将摄像头获取到的h264裸流整理保存成264文件，利用ffplay、爱奇艺万能播放器等可以播放</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018进展：利用回调方法实现了ffmpeg解码-SDL实时播放的功能，但有明显卡顿和延迟"><span class="nav-number">2.</span> <span class="nav-text">2018进展：利用回调方法实现了ffmpeg解码+SDL实时播放的功能，但有明显卡顿和延迟</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最新进展：利用-av-parser-parse2-函数进行逐帧解码，不用回调方法，延迟少于1秒，不卡顿，秒开屏。"><span class="nav-number">3.</span> <span class="nav-text">最新进展：利用 av_parser_parse2() 函数进行逐帧解码，不用回调方法，延迟少于1秒，不卡顿，秒开屏。</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2017进展：将摄像头获取到的h264裸流整理保存成264文件，利用ffplay、爱奇艺万能播放器等可以播放"><span class="nav-number">1.</span> <span class="nav-text">2017进展：将摄像头获取到的h264裸流整理保存成264文件，利用ffplay、爱奇艺万能播放器等可以播放</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018进展：利用回调方法实现了ffmpeg解码-SDL实时播放的功能，但有明显卡顿和延迟"><span class="nav-number">2.</span> <span class="nav-text">2018进展：利用回调方法实现了ffmpeg解码+SDL实时播放的功能，但有明显卡顿和延迟</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最新进展：利用-av-parser-parse2-函数进行分帧并逐帧解码，不用回调方法，延迟少于1秒，不卡顿，秒开屏。"><span class="nav-number">3.</span> <span class="nav-text">最新进展：利用 av_parser_parse2() 函数进行分帧并逐帧解码，不用回调方法，延迟少于1秒，不卡顿，秒开屏。</span></a></li></ol></div>
             
 
           </div>
