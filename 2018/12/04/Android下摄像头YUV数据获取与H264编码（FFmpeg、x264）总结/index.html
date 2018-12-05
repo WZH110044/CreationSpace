@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20181204233112671.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20181204235716893.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20181204235922839.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2018-12-04T16:41:20.840Z">
+<meta property="og:updated_time" content="2018-12-05T02:39:07.789Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android下摄像头YUV数据获取与H264编码（FFmpeg、x264）总结">
 <meta name="twitter:description" content="涉及知识点： Camera2 API使用 YUV420P与YUV420SP（NV21）格式转换 h264文件格式 FFmpeg工程 x264解码器  这次就先记录一下开发过程，因为牵涉到的很多技术问题都不太清楚，Android的知识都不太记得了，还有一些知识牵扯到这些开源工程的内部实现，待以后慢慢学习再写。这个小demo就是做一个摄像头数据的获取与编码存储，由于这个demo的目的是为了给学习直播技">
@@ -346,24 +346,24 @@
 <p>这次就先记录一下开发过程，因为牵涉到的很多技术问题都不太清楚，Android的知识都不太记得了，还有一些知识牵扯到这些开源工程的内部实现，待以后慢慢学习再写。<br>这个小demo就是做一个摄像头数据的获取与编码存储，由于这个demo的目的是为了给学习直播技术打基础，所以对编码速度有一定要求。<br>指标：编码耗费时间必须在33.3ms以下<br>指标说明：由于摄像头采集速度一般在30fps左右，所以编码速度不能小于这个值，否则就会出现编码速度跟不上视频获取速度的情况，造成帧的积压与丢失。</p>
 <p>很久没有写过Android代码了，Android开发的资料还是丰富，官方文档比较详细，再看FFmpeg的文档，非核心的函数也就有个返回值类型的说明了</p>
 <ul>
-<li><p>Camera 2 API<br><a href="https://developer.android.google.cn/reference/android/hardware/camera2/package-summary" target="_blank" rel="noopener">https://developer.android.google.cn/reference/android/hardware/camera2/package-summary</a><br>Camera 2 API是Android API level 21以后添加的摄像头相关库，取代了Camera 1，使用方法有区别，Camera 1其实看起来更清晰，用起来很方便，但是据说Camera 2的优化更好，更省电。</p>
+<li><h4 id="Camera-2-API"><a href="#Camera-2-API" class="headerlink" title="Camera 2 API"></a>Camera 2 API</h4><p><a href="https://developer.android.google.cn/reference/android/hardware/camera2/package-summary" target="_blank" rel="noopener">https://developer.android.google.cn/reference/android/hardware/camera2/package-summary</a><br>Camera 2 API是Android API level 21以后添加的摄像头相关库，取代了Camera 1，使用方法有区别，Camera 1其实看起来更清晰，用起来很方便，但是据说Camera 2的优化更好，更省电。</p>
 </li>
-<li><p>YUV420P与NV21格式<br>YUV420P格式和NV21都是对YUV数据进行采样得到的，NV21别名YUV420SP，其中Y是针对亮度（灰度）取样的值，U与V都是色度取样的值，420是YUV的采样比，四个Y分量对应一个U分量和一个V分量，那为什么不写成411格式呢，YUV411与YUV420的区别在于他们的采样方式不同，如图：<br><img src="https://img-blog.csdnimg.cn/20181204233112671.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>420格式，U的取样在水平方向上的步长是2，在竖直方向上也是2，V同理<br>411格式，U、V的取样在竖直方向上分辨率与Y一样，水平方向上是Y的1/4</p>
+<li><h4 id="YUV420P与NV21格式"><a href="#YUV420P与NV21格式" class="headerlink" title="YUV420P与NV21格式"></a>YUV420P与NV21格式</h4><p>YUV420P格式和NV21都是对YUV数据进行采样得到的，NV21别名YUV420SP，其中Y是针对亮度（灰度）取样的值，U与V都是色度取样的值，420是YUV的采样比，四个Y分量对应一个U分量和一个V分量，那为什么不写成411格式呢，YUV411与YUV420的区别在于他们的采样方式不同，如图：<br><img src="https://img-blog.csdnimg.cn/20181204233112671.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>420格式，U的取样在水平方向上的步长是2，在竖直方向上也是2，V同理<br>411格式，U、V的取样在竖直方向上分辨率与Y一样，水平方向上是Y的1/4</p>
 </li>
 </ul>
 <p>了解了YUV420采样方式后，来看一下它的储存方式，NV21与YUV420P的差别也在于存储方式<br>YUV420P的存储方式是先把所有Y存起来(YYYYYYYY)，再存U(UU)，再存V(VV)<br>而NV21的存储方式是先存Y(YYYYYYYY)，再将UV交叉存储(VUVU)<br><img src="https://img-blog.csdnimg.cn/20181204235716893.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>所以NV21与YUV420P的转换也就很清晰了<br>安卓手机获取的格式一般是NV21，而解码器一般支持的格式是YUV420P，所以，解码之前要进行一下转换。</p>
 <p><em>注：我在做的时候，有一个小问题，利用Camera 2 和imagereader获取到的YUV数据，虽然我知道是NV21格式的，但是发现它用三个数组将NV21数据存起来。<br>按理说既然UV交叉存储那一般应该用两个数组表示即可，而且Y数据的数量应该是像素总数，比如1920</em>1080的数据，数组大小就应该是2073600，UV数据总和应该是Y的1/2，也就是1036800<br>但是我发现它三个数组大小分别是2073600，1036800，1036800，为什么凭空多了一组1/2大小的数据<em><br><img src="https://img-blog.csdnimg.cn/20181204235922839.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">
 </em>于是将数据输出后发现，第三个数组与第二个数组其实是相同的，不过是错位的，第三个数组相比第二个数组整体右移了一个字节，最前面用了一个值来填充<br>有意思的是我一开始进行转换的时候，编码后我打开视频发现我的颜色有的不对，蓝色变为橙色，非常有趣，后将VU数据调换，按正常输出，得知是由于VU数据搞反了，有空可以了解一下具体的原理。*</p>
 <ul>
-<li>h264文件格式</li>
+<li><h4 id="h264文件格式"><a href="#h264文件格式" class="headerlink" title="h264文件格式"></a>h264文件格式</h4></li>
 </ul>
 <p><a href="https://blog.csdn.net/h514434485/article/details/52064945" target="_blank" rel="noopener">https://blog.csdn.net/h514434485/article/details/52064945</a></p>
 <ul>
-<li>FFmpeg工程</li>
+<li><h4 id="FFmpeg工程"><a href="#FFmpeg工程" class="headerlink" title="FFmpeg工程"></a>FFmpeg工程</h4></li>
 </ul>
 <p>之前通过雷神的博客了解到FFmpeg工程，用来做过摄像头获取到的H264数据的解码<br><a href="https://blog.csdn.net/github_37209555/article/details/79530302" target="_blank" rel="noopener">海迪康ipcamera客户端开发纪实</a><br>FFmpeg是一款非常强大的音视频处理工程，C语言编写，写的非常漂亮，可读性很强，下一步继续阅读FFplay的源码，和FFmpeg的编码部分源码<br>这次一开始用FFmpeg做H264的编码工作，首先利用NDK在linux平台上对FFmpeg与x264进行了交叉编译，使之可在arm架构下运行，接下来的工作就是对FFmpeg进行参数调优。但是效果不理想后直接试用x264工程。</p>
 <ul>
-<li>编码器调优总结</li>
+<li><h4 id="编码器调优总结"><a href="#编码器调优总结" class="headerlink" title="编码器调优总结"></a>编码器调优总结</h4></li>
 </ul>
 <p>一开始使用ffmpe编码（ffmpe的264视频编码也是基于X264库），编码一帧的时间非常不稳定，但都不满足要求（一帧处理时间应达到33ms以下），一般在80ms以上，偶尔100-200ms<br>此时的ffmpeg设置是，ultrafast，zerolatency（无帧缓存），线程数3-6差距都不大（手机4核处理器，设置6是因为看到有说线程数实际要除以1.5），与1比稍有提升<br>处理时间包括：</p>
 <ol>
@@ -577,7 +577,7 @@ param.b_sliced_threads = 0; // 片编码并行数，0为自动
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#涉及知识点："><span class="nav-number">1.</span> <span class="nav-text">涉及知识点：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#涉及知识点："><span class="nav-number">1.</span> <span class="nav-text">涉及知识点：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Camera-2-API"><span class="nav-number">1.1.</span> <span class="nav-text">Camera 2 API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#YUV420P与NV21格式"><span class="nav-number">1.2.</span> <span class="nav-text">YUV420P与NV21格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#h264文件格式"><span class="nav-number">1.3.</span> <span class="nav-text">h264文件格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FFmpeg工程"><span class="nav-number">1.4.</span> <span class="nav-text">FFmpeg工程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编码器调优总结"><span class="nav-number">1.5.</span> <span class="nav-text">编码器调优总结</span></a></li></ol></li></ol></div>
             
 
           </div>
