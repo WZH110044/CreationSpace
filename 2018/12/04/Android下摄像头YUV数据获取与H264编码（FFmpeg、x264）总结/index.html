@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20181204233112671.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20181204235716893.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20181204235922839.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2018-12-05T02:39:07.789Z">
+<meta property="og:updated_time" content="2018-12-05T06:58:45.953Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android下摄像头YUV数据获取与H264编码（FFmpeg、x264）总结">
 <meta name="twitter:description" content="涉及知识点： Camera2 API使用 YUV420P与YUV420SP（NV21）格式转换 h264文件格式 FFmpeg工程 x264解码器  这次就先记录一下开发过程，因为牵涉到的很多技术问题都不太清楚，Android的知识都不太记得了，还有一些知识牵扯到这些开源工程的内部实现，待以后慢慢学习再写。这个小demo就是做一个摄像头数据的获取与编码存储，由于这个demo的目的是为了给学习直播技">
@@ -352,8 +352,7 @@
 </li>
 </ul>
 <p>了解了YUV420采样方式后，来看一下它的储存方式，NV21与YUV420P的差别也在于存储方式<br>YUV420P的存储方式是先把所有Y存起来(YYYYYYYY)，再存U(UU)，再存V(VV)<br>而NV21的存储方式是先存Y(YYYYYYYY)，再将UV交叉存储(VUVU)<br><img src="https://img-blog.csdnimg.cn/20181204235716893.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>所以NV21与YUV420P的转换也就很清晰了<br>安卓手机获取的格式一般是NV21，而解码器一般支持的格式是YUV420P，所以，解码之前要进行一下转换。</p>
-<p><em>注：我在做的时候，有一个小问题，利用Camera 2 和imagereader获取到的YUV数据，虽然我知道是NV21格式的，但是发现它用三个数组将NV21数据存起来。<br>按理说既然UV交叉存储那一般应该用两个数组表示即可，而且Y数据的数量应该是像素总数，比如1920</em>1080的数据，数组大小就应该是2073600，UV数据总和应该是Y的1/2，也就是1036800<br>但是我发现它三个数组大小分别是2073600，1036800，1036800，为什么凭空多了一组1/2大小的数据<em><br><img src="https://img-blog.csdnimg.cn/20181204235922839.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">
-</em>于是将数据输出后发现，第三个数组与第二个数组其实是相同的，不过是错位的，第三个数组相比第二个数组整体右移了一个字节，最前面用了一个值来填充<br>有意思的是我一开始进行转换的时候，编码后我打开视频发现我的颜色有的不对，蓝色变为橙色，非常有趣，后将VU数据调换，按正常输出，得知是由于VU数据搞反了，有空可以了解一下具体的原理。*</p>
+<p><em>注：我在做的时候，有一个小问题，利用Camera 2 和imagereader获取到的YUV数据，虽然我知道是NV21格式的，但是发现它用三个数组将NV21数据存起来。<br>按理说既然UV交叉存储那一般应该用两个数组表示即可，而且Y数据的数量应该是像素总数，比如1920×1080的数据，数组大小就应该是2073600，UV数据总和应该是Y的1/2，也就是1036800<br>但是我发现它三个数组大小分别是2073600，1036800，1036800，为什么凭空多了一组1/2大小的数据</em><br><img src="https://img-blog.csdnimg.cn/20181204235922839.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zNzIwOTU1NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><em>于是将数据输出后发现，第三个数组与第二个数组其实是相同的，不过是错位的，第三个数组相比第二个数组整体右移了一个字节，最前面用了一个值来填充<br>有意思的是我一开始进行转换的时候，编码后我打开视频发现我的颜色有的不对，蓝色变为橙色，非常有趣，后将VU数据调换，按正常输出，得知是由于VU数据搞反了，有空可以了解一下具体的原理。</em></p>
 <ul>
 <li><h4 id="h264文件格式"><a href="#h264文件格式" class="headerlink" title="h264文件格式"></a>h264文件格式</h4></li>
 </ul>
@@ -423,6 +422,10 @@ param.b_sliced_threads = 0; // 片编码并行数，0为自动
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/24/Ubuntu下利用NDK编译ffmpeg+x264+fdk-aac/" rel="prev" title="Ubuntu下利用NDK编译ffmpeg+x264+fdk-aac">
+                Ubuntu下利用NDK编译ffmpeg+x264+fdk-aac <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -508,7 +511,7 @@ param.b_sliced_threads = 0; // 片编码并行数，0为自动
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -519,7 +522,7 @@ param.b_sliced_threads = 0; // 片编码并行数，0为自动
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -530,7 +533,7 @@ param.b_sliced_threads = 0; // 片编码并行数，0为自动
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
